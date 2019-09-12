@@ -37,9 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Configs\appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="Configs\nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
