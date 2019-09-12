@@ -1,0 +1,433 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ctrl.Pay.Service</name>
+    </assembly>
+    <members>
+        <member name="T:Ctrl.Pay.Service.Controllers.AlipayController">
+            <summary>
+             支付宝操作接口
+            </summary>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.WebPay(System.String,System.String,System.Double,System.String)">
+            <summary>
+                电脑网站支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="subject">订单标题</param>
+            <param name="total_amount">总金额（单位为元精确到小数点后两位）</param>
+            <param name="body">订单描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.WapPay(System.String,System.String,System.Double,System.String)">
+            <summary>
+                手机网站支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="subject">订单标题</param>
+            <param name="total_amount">总金额（单位为元精确到小数点后两位）</param>
+            <param name="body">订单描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.AppPay(System.String,System.String,System.Double,System.String)">
+            <summary>
+                APP支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="subject">订单标题</param>
+            <param name="total_amount">总金额（单位为元精确到小数点后两位）</param>
+            <param name="body">订单描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.ScanPay(System.String,System.String,System.Double,System.String)">
+            <summary>
+                扫码支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="subject">订单标题</param>
+            <param name="total_amount">总金额（单位为元精确到小数点后两位）</param>
+            <param name="body">订单描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.BarcodePay(System.String,System.String,System.String,System.Double,System.String)">
+            <summary>
+                条码支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="auth_code">授权码</param>
+            <param name="subject">订单标题</param>
+            <param name="total_amount">总金额（单位为精确到小数点后两位）</param>
+            <param name="body">订单描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.BarcodePay_PaySucceed(Ctrl.Plugin.PayCore.Response.IResponse,System.String)">
+            <summary>
+            支付成功事件
+            </summary>
+            <param name="response">返回结果</param>
+            <param name="message">提示信息</param>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.BarcodePay_PayFaild(Ctrl.Plugin.PayCore.Response.IResponse,System.String)">
+            <summary>
+            支付失败事件
+            </summary>
+            <param name="response">返回结果,可能是BarcodePayResponse/QueryResponse</param>
+            <param name="message">提示信息</param>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.Query(System.String,System.String)">
+            <summary>
+                交易查询
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="trade_no">支付宝订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.Refund(System.String,System.String,System.Double,System.String,System.String)">
+            <summary>
+                交易退款
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="trade_no">支付宝订单号</param>
+            <param name="refund_amount">退款金额</param>
+            <param name="refund_reason">退款原因</param>
+            <param name="out_request_no">退款号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.RefundQuery(System.String,System.String,System.String)">
+            <summary>
+                退款查询
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="trade_no">支付宝订单号</param>
+            <param name="out_request_no">退款号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.Cancel(System.String,System.String)">
+            <summary>
+                交易撤销
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="trade_no">支付宝订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.Close(System.String,System.String)">
+            <summary>
+             交易关闭
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="trade_no">支付宝订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.Transfer(System.String,System.String,System.String,System.Double,System.String)">
+            <summary>
+                单笔转账
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="payee_account">收款方账户</param>
+            <param name="payee_type">首款方账户类型</param>
+            <param name="amount">转账金额</param>
+            <param name="remark">备注</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.TransferQuery(System.String,System.String)">
+            <summary>
+                转账查询
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="trade_no">支付宝订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.AlipayController.BillDownload(System.String,System.String)">
+            <summary>
+                下载对账单
+            </summary>
+            <param name="bill_date">账单日期 日账单格式为yyyy-MM-dd，月账单格式为yyyy-MM</param>
+            <param name="bill_type">账单类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ctrl.Pay.Service.Controllers.UnionpayController">
+            <summary>
+               银联支付操作接口
+            </summary>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.WebPay(System.String,System.Int32)">
+            <summary>
+                电脑网站支付
+            </summary>
+            <param name="order_id">订单号</param>
+            <param name="total_amount">金额（单位：分）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.WapPay(System.String,System.Int32)">
+            <summary>
+                手机网站支付
+            </summary>
+            <param name="order_id">订单号</param>
+            <param name="total_amount">金额（单位：分）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.AppPay(System.String,System.Int32,System.String)">
+            <summary>
+            APP支付 
+            </summary>
+            <param name="order_id">订单号</param>
+            <param name="total_amount">金额（单位：分）</param>
+            <param name="body">描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.ScanPay(System.String,System.Int32)">
+            <summary>
+                扫码支付
+            </summary>
+            <param name="order_id">订单号</param>
+            <param name="total_amount">金额</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.BarcodePay(System.String,System.String,System.Int32)">
+            <summary>
+                条码支付
+            </summary>
+            <param name="order_id">订单号</param>
+            <param name="qr_no">二维码编码</param>
+            <param name="total_amount">金额</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.Cancel(System.String,System.Int32,System.String,System.String)">
+            <summary>
+                撤销订单
+            </summary>
+            <param name="order_id">订单号</param>
+            <param name="cancel_amount">金额</param>
+            <param name="orig_qry_id">原始流水号</param>
+            <param name="orig_order_id">原始订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.Refund(System.String,System.Int32,System.String,System.String)">
+            <summary>
+                申请退款
+            </summary>
+            <param name="order_id">订单号</param>
+            <param name="refund_amount">金额</param>
+            <param name="orig_qry_id">原始流水号</param>
+            <param name="orig_order_id">原始订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.Query(System.String,System.String)">
+            <summary>
+                查询订单
+            </summary>
+            <param name="order_id">订单号</param>
+            <param name="query_id">流水号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.BillDownload(System.String)">
+            <summary>
+                下载对账单
+            </summary>
+            <param name="bill_date">MMDD</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.BarcodePay_PaySucceed(Ctrl.Plugin.PayCore.Response.IResponse,System.String)">
+            <summary>
+            支付成功事件
+            </summary>
+            <param name="response">返回结果</param>
+            <param name="message">提示信息</param>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.UnionpayController.BarcodePay_PayFaild(Ctrl.Plugin.PayCore.Response.IResponse,System.String)">
+            <summary>
+            支付失败事件
+            </summary>
+            <param name="response">返回结果,可能是BarcodePayResponse/QueryResponse</param>
+            <param name="message">提示信息</param>
+        </member>
+        <member name="T:Ctrl.Pay.Service.Controllers.WechatpayController">
+            <summary>
+                微信接口操作
+            </summary>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.ScanPay(System.String,System.String,System.Int32)">
+            <summary>
+                扫码支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="body">订单描述</param>
+            <param name="total_amount">金额（单位为分）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.BarcodePay(System.String,System.String,System.Int32,System.String)">
+            <summary>
+                条码支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="auth_code">授权码(扫码支付授权码，设备读取用户微信中的条码或者二维码信息（注：用户刷卡条形码规则：18位纯数字，以10、11、12、13、14、15开头）)</param>
+            <param name="total_amount">金额（单位为分）</param>
+            <param name="body">订单描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.PublicPay(System.String,System.Int32,System.String,System.String)">
+            <summary>
+                公众号支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="total_amount">金额(单位为分)</param>
+            <param name="body">订单描述</param>
+            <param name="open_id">用户标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.AppPay(System.String,System.Int32,System.String)">
+            <summary>
+                微信APP支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="total_amount">金额（单位为分）</param>
+            <param name="body">订单描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.AppletPay(System.String,System.Int32,System.String,System.String)">
+            <summary>
+                微信小程序支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="total_amount">金额（单位为分）</param>
+            <param name="body">订单描述</param>
+            <param name="open_id">用户标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.WapPay(System.String,System.Int32,System.String,System.String)">
+            <summary>
+                微信H5支付
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="total_amount">金额（单位为分）</param>
+            <param name="body">订单描述</param>
+            <param name="scene_info">场景信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.Query(System.String,System.String)">
+            <summary>
+                查询订单
+            </summary>
+            <param name="out_trade_no">微信订单号</param>
+            <param name="trade_no">订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.Close(System.String)">
+            <summary>
+                关闭订单
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.Cancel(System.String)">
+            <summary>
+                撤销订单
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.Refund(System.String,System.String,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+                申请退款
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="trade_no">微信订单号</param>
+            <param name="total_amount">金额（单位为分）</param>
+            <param name="refund_amount">退款金额（单位为分）</param>
+            <param name="refund_desc">退款描述</param>
+            <param name="out_refund_no">退款号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.RefundQuery(System.String,System.String,System.String,System.String)">
+            <summary>
+                查询退款
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="trade_no">微信订单号</param>
+            <param name="out_refund_no">退货订单号</param>
+            <param name="refund_no">微信退款订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.BillDownload(System.String,System.String)">
+            <summary>
+                下载对账单
+            </summary>
+            <param name="bill_date">下载对账单的日期(格式：yyyyMMdd)</param>
+            <param name="bill_type">账单类型(ALL，返回当日所有订单信息，默认值;SUCCESS，返回当日成功支付的订单;REFUND，返回当日退款订单;RECHARGE_REFUND，返回当日充值退款订单)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.FundFlowDownload(System.String,System.String)">
+            <summary>
+                下载资金账单
+            </summary>
+            <param name="bill_date">下载资金账单日期（格式：yyyyMMdd）</param>
+            <param name="account_type">资金账户类型（账单的资金来源账户：Basic  基本账户 Operation 运营账户 Fees 手续费账户）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.Transfer(System.String,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+                企业付款到零钱
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="openid">用户openid</param>
+            <param name="check_name">校验用户姓名选项（NO_CHECK：不校验真实姓名 FORCE_CHECK：强校验真实姓名）</param>
+            <param name="true_name">收款用户姓名</param>
+            <param name="amount">付款金额</param>
+            <param name="desc">付款说明</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.TransferQuery(System.String)">
+            <summary>
+                查询企业付款零钱
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.PublicKey">
+            <summary>
+                获取RSA公钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.TransferToBank(System.String,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+                企业付款到银行卡
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <param name="bank_no">首款方银行卡号</param>
+            <param name="true_name">收款方用户名</param>
+            <param name="bank_code">收款方开户行（银行卡所在开户行编号,详见银行编号列表）</param>
+            <param name="amount">付款金额</param>
+            <param name="desc">付款说明</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.TransferToBankQuery(System.String)">
+            <summary>
+                查询企业付款银行卡
+            </summary>
+            <param name="out_trade_no">订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.OAuth(System.String)">
+            <summary>
+                获取OepnId
+            </summary>
+            <param name="code">微信Code</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.BarcodePay_PaySucceed(Ctrl.Plugin.PayCore.Response.IResponse,System.String)">
+            <summary>
+            支付成功事件
+            </summary>
+            <param name="response">返回结果</param>
+            <param name="message">提示信息</param>
+        </member>
+        <member name="M:Ctrl.Pay.Service.Controllers.WechatpayController.BarcodePay_PayFaild(Ctrl.Plugin.PayCore.Response.IResponse,System.String)">
+            <summary>
+            支付失败事件
+            </summary>
+            <param name="response">返回结果,可能是BarcodePayResponse/QueryResponse</param>
+            <param name="message">提示信息</param>
+        </member>
+    </members>
+</doc>

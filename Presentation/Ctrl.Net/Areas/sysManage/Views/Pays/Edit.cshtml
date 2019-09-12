@@ -1,0 +1,89 @@
+@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+@model SystemPays
+    <form class="form-horizontal ctrl-form">
+        @Html.HiddenFor(p => p.PayId)
+        @Html.AntiForgeryToken()
+        <div class='hr-line-dashed'></div>
+        <div class='form-group'>
+            <label class='col-sm-2 control-label'>  支付名称：</label>
+            <div class='input-group  col-sm-10'>
+                <input type='text' name='PayName' id='PayName' value="@Model.PayName" class='form-control input-sm'>
+            </div>
+        </div>
+        <div class='hr-line-dashed'></div>
+        <div class='form-group'>
+            <label class='col-sm-2 control-label'> 类型：</label>
+            <div class='input-group  col-sm-10'>
+                <select type='text' name='PayType' id='PayType' class='form-control input-sm ' ></select>
+            </div>
+        </div>
+
+        <div class='hr-line-dashed'></div>
+        <div class='form-group'>
+            <label class='col-sm-2 control-label'> Logo：</label>
+            <div class='input-group  col-sm-10'>
+                @*<img src="~/images/noimage.png" id="preimg" height="100" />*@
+                <input type="file" id='File' class='form-control input-sm'>
+                <input type="text" id='PayLogo' name='PayLogo' hidden="hidden" value="@Model.PayLogo">
+            </div>
+        </div>  <div class='hr-line-dashed'></div>
+        <div class='form-group'>
+            <label class='col-sm-2 control-label'> 排序码：</label>
+            <div class='input-group  col-sm-10'>
+                <input type='text' name='OrderNo' id='OrderNo' class='form-control input-sm' value="@Model.OrderNo">
+            </div>
+        </div>  <div class='hr-line-dashed'></div>
+        <div class='form-group'>
+            <label class='col-sm-2 control-label'> 备注：</label>
+            <div class='input-group  col-sm-10'>
+                <textarea class="form-control" rows="3" name="Remark" id="Remark">@Model.Remark</textarea>
+            </div>
+        </div>
+        <div class='form-group'>
+            <label class='col-sm-2 control-label'> 配置信息：</label>
+            <div class='input-group  col-sm-10'>
+                <textarea class="form-control" rows="5" name="ConfigInfo" id="ConfigInfo">@Model.ConfigInfo</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="保 存" id="btnForm" class="btn btn-primary" />
+                <input id="rst" class="btn" type="button" value="返 回" name="rst" />&nbsp;
+            </div>
+        </div>
+
+    </form>
+<script>
+    $("#File").fileimage("/sysManage/UserControl/FileSave", $("#PayLogo"), $("#PayLogo").val());
+    $("#PayType").CtrlSelect2("/sysManage/Dictionary/GetTypeChildrenByCode", {id:"zffs"}, function () {
+        $("#PayType").val('@Model.PayType').trigger("change"); 
+    });
+                   
+    $(function () {
+
+        var $form = $('form');
+        var instance = $form.parsley();
+        $("#btnForm").bind("click", function () {
+            $("#btnForm").attr({ "disabled": "disabled" });
+            if (instance.isValid()) {
+                $post("/SysManage/Pays/SavePays", $form.serialize()).then(function (data) {
+                    $.Alert(data, function () {
+                        if (data.resultSign == 0) {
+                            parent.window.location.reload();
+                            //parent.layer.closeAll();
+                        }
+                    });
+                })
+                $("#btnForm").removeAttr("disabled");
+                return false;
+            } else {
+                $("#btnForm").removeAttr("disabled");
+            }
+        })
+           
+    });
+
+
+</script>

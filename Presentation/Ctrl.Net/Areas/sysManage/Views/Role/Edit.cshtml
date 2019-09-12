@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+    <form class="form-horizontal ctrl-form" >
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="col-sm-2 control-label">名称：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control input-sm" name="Name" id="Name" data-parsley-required="名称">
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">选项：</label>
+            <div class="col-sm-10">
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="IsFreeze">冻结
+                </label>
+            </div>
+        </div>
+
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">排序号：</label>
+            <div class="col-sm-10">
+                <input type="text" name="OrderNo" class="form-control input-sm">
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">备注：</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="保 存" id="btnForm" class="btn btn-primary" />
+                <input id="rst" class="btn" type="button" value="返 回" name="rst" />&nbsp;
+            </div>
+        </div>
+     
+    </form>
+
+
+<script>
+    $(function () {
+        var $form = $('form');
+        var instance = $form.parsley();
+        $("#btnForm").bind("click", function () {
+            $("#btnForm").attr({ "disabled": "disabled" });
+            if (instance.isValid()) {
+                $post("/SysManage/Role/SaveRole", $form.serialize()).then(function (data) {
+                    $.Alert(data, function () {
+                        if (data.resultSign == 0) {
+                            parent.window.location.reload();
+                            //parent.layer.closeAll();
+                        }
+                    });
+                })
+                $("#btnForm").removeAttr("disabled");
+                return false;
+            } else {
+                $("#btnForm").removeAttr("disabled");
+            }
+        })
+        $("body").delegate("#rst", "click", function () {
+            parent.layer.closeAll();
+        })
+    });
+</script>

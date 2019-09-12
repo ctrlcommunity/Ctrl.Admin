@@ -1,0 +1,121 @@
+﻿@model SystemMenuButton
+@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+<form class="form-horizontal ctrl-form">
+    <input hidden value="@Model.MenuButtonId" name="MenuButtonId" id="MenuButtonId" />
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label class="col-sm-2 control-label">归属模块：</label>
+        <div class="form-group col-sm-10">
+            <input class="form-control input-sm" id="txtMenuId" type="text" readonly />
+            <input class="form-control input-sm" name="MenuId" id="MenuId" type="hidden" readonly />
+            <div id="menuContent" class="menuContent" style="display:none;box-shadow: #464343 0px 0px 18px;background-color: white;">
+                <ul id="treeMenu" class="ztree" style="margin-top:0; width:160px;"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">名称：</label>
+        <div class="input-group col-sm-10">
+            <input type="text" class="form-control input-sm" name="Name" id="Name" value="@Model.Name" data-parsley-required="名称">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">权限代码：</label>
+        <div class="input-group col-sm-10">
+            <input type="text" class="form-control input-sm" name="Code" id="Code" value="@Model.Code">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">图标：</label>
+        <div class="input-group col-sm-10">
+            <input data-placement="bottomRight" class="form-control icp icp-auto" id="Icon" name="Icon" value="@(string.IsNullOrWhiteSpace(Model.Icon) ? "fas fa-cog" : Model.Icon) " type="text" />
+            <span class="input-group-addon"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">脚本：</label>
+        <div class="input-group col-sm-10">
+            <input type="text" class="form-control input-sm" name="Script" id="Script" value="@Model.Script" data-parsley-required="方法">
+        </div>
+    </div>
+
+
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">排序号：</label>
+        <div class="input-group col-sm-10">
+            <input type="text" name="OrderNo" class="form-control input-sm" value="@Model.OrderNo">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">备注：</label>
+        <div class="input-group col-sm-10">
+            <textarea class="form-control" rows="3" name="Remark">@Model.Remark</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="保 存" id="btnForm" class="btn btn-primary" />
+            <input id="rst" class="btn" type="button" value="返 回" name="rst" />&nbsp;
+        </div>
+    </div>
+
+</form>
+
+<script>
+    $(function () {
+        $('.icp-auto').iconpicker();
+        var $form = $('form');
+        var instance = $form.parsley();
+        $("#btnForm").bind("click", function () {
+            $("#btnForm").attr({ "disabled": "disabled" });
+            if (instance.isValid()) {
+                $post("/SysManage/Menubutton/SaveMenubutton", $form.serialize()).then(function (data) {
+                    $.Alert(data, function () {
+                        if (data.resultSign == 0) {
+                            parent.window.location.reload();
+                        }
+                    });
+                })
+                $("#btnForm").removeAttr("disabled");
+                return false;
+            } else {
+                $("#btnForm").removeAttr("disabled");
+            }
+        })
+        $post("/sysManage/UserControl/GetMenuRemoveChildren", null).then(function (data) {
+              @{
+                if (!Model.MenuId.IsEmptyGuid())
+                {
+                    <text>
+                        $("#MenuId").val('@Model.MenuId');
+                        $("#txtMenuId").val(_.find(data, function(o) { return o.id == '@Model.MenuId'; }).name);
+                   </text>
+
+                }
+            }
+            $('#treeMenu').zTreeSelect("#menuContent", "#txtMenuId", data, function (e, treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj(treeId);
+                nodes = zTree.getSelectedNodes(),
+                    v = "", id = "";
+
+                nodes.sort(function compare(a, b) { return a.id - b.id; });
+                for (var i = 0, l = nodes.length; i < l; i++) {
+                    v += nodes[i].name + ",";
+                    id = nodes[i].id;
+                }
+                if (v.length > 0) v = v.substring(0, v.length - 1);
+                $("#txtMenuId").val(v);
+                $("#MenuId").val(id);
+            });
+        })
+
+
+    });
+
+
+</script>

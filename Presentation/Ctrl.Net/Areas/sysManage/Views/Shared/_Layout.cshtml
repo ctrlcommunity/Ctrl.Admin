@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>@ViewData["Title"]</title>
+    <link href="~/lib/pace/themes/black/pace-theme-loading-bar.min.css" rel="stylesheet" id="pace"  asp-append-version="true">
+    <script src="~/lib/pace/pace.min.js"  asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/lib/bootstarp/dist/css/bootstrap.min.css"  asp-append-version="true">
+    <link rel="stylesheet/less" href="~/css/style.less" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css"  asp-append-version="true">
+    <link rel="stylesheet" type="text/css" href="~/js/Plugins/layer/theme/default/layer.css" asp-append-version="true" />
+    <script src="https://cdn.bootcss.com/less.js/3.9.0/less.min.js"  asp-append-version="true"></script>
+    <link rel="stylesheet" type="text/css" href="~/lib/parsley/src/parsley.css" asp-append-version="true" />
+    <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstarp/dist/js/bootstrap.min.js"  asp-append-version="true"></script>
+    <script src="~/lib/promise-polyfill/dist/polyfill.min.js"  asp-append-version="true"></script>
+    <script src="~/lib/lodash/lodash.min.js" asp-append-version="true"></script>
+    <script src="~/lib/font-awesome/js/fontawesome.min.js" asp-append-version="true"></script>
+    <script src="~/lib/axios/axios.min.js" asp-append-version="true"></script>
+    <script src="~/js/util/http.js" asp-append-version="true"></script>
+    <script src="~/lib/parsley/dist/parsley.min.js" asp-append-version="true"></script>
+    <script src="~/lib/parsley/dist/i18n/zh_cn.js" asp-append-version="true"></script>
+    <script src="~/lib/sweetalert/sweetalert2.all.min.js"  asp-append-version="true"></script>
+    <script src="~/js/Plugins/layer/layer.js" asp-append-version="true"></script>
+    <script src="~/js/util/Alert.js" asp-append-version="true"></script>
+    <script src="~/js/util/Common.js" asp-append-version="true"></script>
+    @RenderSection("style", required: false)
+
+</head>
+<body>
+    <div class="ctrl-loading" id="ctrl-loading" style="display: block;"></div>
+    @RenderBody()
+</body>
+@RenderSection("script", required: false)
+<script>
+       $(document).ready(function () {
+            setTimeout(function () {
+                $("#pace").attr("rel", "external nofollow");
+                $("#ctrl-loading").css("display", "none");
+            }, 1000);
+        });
+</script>
+</html>
+

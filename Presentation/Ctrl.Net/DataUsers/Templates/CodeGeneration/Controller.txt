@@ -1,0 +1,81 @@
+﻿using Ctrl.Core.Core.Attributes;
+using Ctrl.Core.Core.Converts;
+using Ctrl.Core.Core.Utils;
+using Ctrl.Core.Entities;
+using Ctrl.Core.Entities.Dtos;
+using Ctrl.Core.Entities.Paging;
+using Ctrl.Domain.Business.Config;
+using Ctrl.Domain.Models.Dtos.Config;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Ctrl.{{NameSpace}}.Business;
+using Ctrl.{{NameSpace}}.Models.Entities;
+using Ctrl.Core.Web;
+
+
+namespace Ctrl.Net.Areas.sysManage.Controllers
+{
+    /// <summary>
+    /// {{Description}}控制器
+    /// </summary>
+    public class  {{ControllerName}}Controller : BaseController
+    {
+        #region 构造函数
+
+        private readonly I{{ClassName}}Logic _{{ClassNameLower}}Logic;
+
+
+        public {{ControllerName}}Controller(I{{ClassName}}Logic {{ClassNameLower}}Logic)
+        {
+            _{{ClassNameLower}}Logic = {{ClassNameLower}}Logic;
+        }
+
+        #endregion
+
+        #region 视图
+		 /// <summary>
+        ///     列表
+        /// </summary>
+        /// <returns></returns>
+        [CreateBy("冯辉")]
+        [Description("应用系统-{{Description}}-列表")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+		 /// <summary>
+        ///     编辑
+        /// </summary>
+        /// <returns></returns>
+        [CreateBy("冯辉")]
+        [Description("应用系统-{{Description}}-编辑")]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+        #endregion
+
+        #region 方法
+		/// <summary>
+        ///     获取{{Description}}
+        /// </summary>
+        /// <returns></returns>
+        [CreateBy("冯辉")]
+        [Description("应用系统-{{Description}}-方法-获取{{Description}}")]
+        public async Task<JsonResult> GetList()
+        {
+            return Json(await _{{ClassNameLower}}Logic.GetAllEnumerableAsync());
+        }
+
+		{{PagingAction}}
+
+
+		{{SaveAction}}
+		#endregion
+	}
+}

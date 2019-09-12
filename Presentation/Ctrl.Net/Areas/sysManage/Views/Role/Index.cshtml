@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "角色表";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+<div class="row">
+    <div id="toolbar">
+        <h1 class="page-title">角色维护</h1>
+        <div class="form-inline pull-right " id="toolbutton">
+
+            <button class="btn btn-default btn-xs" name="btn_select_box" type="submit"><i class=" fa fa-search fa-lg"></i> 查询 </button>
+
+        </div>
+
+    </div>
+    <div id="ctrltable">
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    var $grid = $("#ctrltable").ctrlGrid({
+        id: "#ctrltable",
+        url: "/sysManage/role/GetPagingRole",
+        columns: [
+            { field: "name", title: "角色名称", width: 150, sort: false, align: "center" },
+            {
+                field: "isFreeze", title: "冻结", width: 50, sort: false, align: "center", forrmatter(obj) {
+                    if (obj.isFreeze) {
+                        return '<p>冻结</p>';
+                    }
+                    return '<p class="bg-primary">未冻结</p>';
+                }},
+            { field: "createTime", title: "创建时间", width: 210, sort: false, align: "center" },
+            { field: "createUserName", title: "创建人", width: 150, sort: false, align: "center" },
+            { field: "updateTime", title: "修改时间", width: 210, sort: false, align: "center" },
+            { field: "updateUserName", title: "修改人", width: 150, sort: false, align: "center" },
+            { field: "orderNo", title: "排序", width: 100, sort: false, align: "center" },
+            { field: "remark", title: "备注", width: 100, sort: false, align: "center" }
+        ],
+        pagination: true,
+        searchnation: true,
+        pagerow: 15,
+        Sidx: "createtime",
+        Sord: "desc",
+        Serial: true
+    });
+    function btn_add_box() {
+        $.windowsOpen("/sysManage/Role/Edit", "新增角色", '55%', '55%');
+    }
+
+  
+    $("[name='btn_select_box']").click(function () {
+        $grid.registersearchClick();
+    })
+    function menuPermission() {
+        var obj = $grid.gridRowValue();
+      
+            if (obj==null) {
+                $.Alert({ resultSign: 1, message: "请选择一个角色！" });
+                return false;
+            }
+            $.windowsOpen("/sysManage/Role/Chosen?roleid=" + obj.roleId, "模块权限", '20%', '60%');
+       
+    }
+    function buttonPermission() {
+        var obj = $grid.gridRowValue();
+            if (obj==null) {
+                $.Alert({ resultSign: 1, message: "请选择一个角色！" });
+                return false;
+            }
+            $.windowsOpen("/sysManage/Role/ChosenButton?roleid=" + obj.roleId, "按钮权限", '60%', '60%');
+    }
+
+</script>

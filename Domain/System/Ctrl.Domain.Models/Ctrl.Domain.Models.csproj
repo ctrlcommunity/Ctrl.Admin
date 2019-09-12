@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Ctrl.Core.AutoMapper\Ctrl.Core.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\..\Core\Ctrl.Core.Entities\Ctrl.Core.Entities.csproj" />
+    <ProjectReference Include="..\..\..\Core\Ctrl.Core.PetaPoco\Ctrl.Core.PetaPoco.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,68 @@
+@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+<form class="form-horizontal ctrl-form">
+    @Html.AntiForgeryToken()
+	     <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> sql日志Id：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='SqlLogId' id='SqlLogId' class='form-control input-sm' >
+                                </div>
+                            </div>  <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> 创建人员：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='CreateUserId' id='CreateUserId' class='form-control input-sm' >
+                                </div>
+                            </div>  <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> 创建人员登录代码：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='CreateUserCode' id='CreateUserCode' class='form-control input-sm' >
+                                </div>
+                            </div>  <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> 创建人员名字：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='CreateUserName' id='CreateUserName' class='form-control input-sm' >
+                                </div>
+                            </div>  <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> 创建时间：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='CreateTime' id='CreateTime' class='form-control input-sm' >
+                                </div>
+                            </div>  <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> 操作sql：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='OperateSql' id='OperateSql' class='form-control input-sm' >
+                                </div>
+                            </div>  <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> 结束时间：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='EndDateTime' id='EndDateTime' class='form-control input-sm' >
+                                </div>
+                            </div>  <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> 耗时：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='ElapsedTime' id='ElapsedTime' class='form-control input-sm' >
+                                </div>
+                            </div>  <div class='hr-line-dashed'></div>
+                            <div class='form-group'>
+                                <label class='col-sm-2 control-label'> 参数：</label>
+                                <div class='input-group  col-sm-10'>
+                                    <input type='text' name='Parameter' id='Parameter' class='form-control input-sm' >
+                                </div>
+                            </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="保 存" id="btnForm" class="btn btn-primary" />
+            <input id="rst" class="btn" type="button" value="返 回" name="rst" />&nbsp;
+        </div>
+    </div>
+
+</form>

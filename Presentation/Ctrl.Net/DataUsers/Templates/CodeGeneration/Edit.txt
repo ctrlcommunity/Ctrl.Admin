@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+<form class="form-horizontal ctrl-form">
+    @Html.AntiForgeryToken()
+
+	   {{Body}}
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="保 存" id="btnForm" class="btn btn-primary" />
+            <input id="rst" class="btn" type="button" value="返 回" name="rst" />&nbsp;
+        </div>
+    </div>
+
+</form>

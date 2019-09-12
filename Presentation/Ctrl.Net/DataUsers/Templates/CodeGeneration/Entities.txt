@@ -1,0 +1,17 @@
+﻿using Ctrl.Core.PetaPoco;
+using System;
+using Ctrl.Core.Entities;
+
+namespace Ctrl.{{NameSpace}}.Models.Entities
+{
+	/// <summary>
+    ///    {{Description}}表实体类
+    /// </summary>
+    [Serializable]
+    [TableName("{{TableName}}")]
+    [PrimaryKey("{{KeyName}}")]
+    public class {{ClassName}}: EntityBase
+    {
+		{{EntitiesBody}}
+    }
+}

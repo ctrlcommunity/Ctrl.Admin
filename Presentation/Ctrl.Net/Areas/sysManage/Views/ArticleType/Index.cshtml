@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "文章类型";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+<div class="row">
+    <div id="toolbar">
+        <h1 class="page-title">文章类型</h1>
+        <div class="form-inline pull-right">
+            <button class="btn btn-default btn-xs" name="btn_select_box" type="submit"><i class=" fa fa-search fa-lg"></i> 查询 </button>
+
+
+        </div>
+    </div>
+    <div id="ctrltable">
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var $grid = $("#ctrltable").ctrlGrid({
+        id: "#ctrltable",
+        url: "/sysManage/articletype/GetPagingArticleType",
+        columns: [
+            { field: "parentName", title: "上级类型", width: 200, sort: false, align: "center" },
+            { field: "name", title: "名称", sort: false, align: "center" },
+            { field: "orderNo", title: "排序码", width: 100, sort: false, align: "center" },
+            {
+                field: "isShow", title: "是否显示", width: 100, sort: false, align: "center", forrmatter(obj) {
+                    if (!obj.isShow) {
+                        return '<p class="">否</p>';
+                    }
+                    return '<p class="bg-primary">是</p>';
+                }
+            }
+        ],
+        pagination: true,
+        searchnation: true,
+        pagerow: 15,
+        Sidx: "arttype.CreateTime",
+        Sord: "desc",
+        Serial: true
+    });
+    $("[name='btn_select_box']").click(function () {
+        $grid.registersearchClick();
+    })
+    function btn_add_box() {
+        $.windowsOpen("/sysManage/articletype/Edit", "新增文章类型", '55%', '65%');
+    }
+    function btn_edit_box() {
+        var obj = $grid.gridRowValue();
+        if (obj == null) {
+            $.Alert({ resultSign: 1, message: "请选择一个类别！" });
+            return false;
+        }
+        $.windowsOpen("/sysManage/articletype/Edit?id=" + obj.articleTypeId, "编辑文章类别", '55%', '85%');
+    }
+</script>

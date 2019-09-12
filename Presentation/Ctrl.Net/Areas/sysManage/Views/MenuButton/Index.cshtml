@@ -1,0 +1,83 @@
+@{
+    ViewData["Title"] = "菜单按钮";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+
+
+<div class="row">
+    <div id="toolbar">
+        <h1 class="page-title">菜单按钮</h1>
+        <div class="form-inline pull-right" id="toolbutton">
+            <button class="btn btn-default btn-xs" name="btn_select_box" type="submit"><i class=" fa fa-search fa-lg"></i> 查询 </button>
+            <input id="pid" name="id" hidden>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div style="background-color:white;overflow:scroll;margin-top:25px;height:100vh">
+                <ul id="treeMenu" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div id="ctrltable">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: onClick
+        }
+    };
+    $post("/sysManage/Permission/GetPermissionByCheckedPrivilegeMasterValue").then(function (data) {
+        var ztree = $.fn.zTree.init($("#treeMenu"), setting, data);
+        ztree.expandAll(true);
+    })
+    function onClick(e, treeId, treeNode) {
+        $("#pid").val(treeNode.id);
+        $grid.registersearchClick();
+    };
+
+    var $grid = $("#ctrltable").ctrlGrid({
+        id: "#ctrltable",
+        url: "/sysManage/menubutton/GetMenuButtonByMenuId",
+        columns: [
+            { field: "menuName", title: "菜单名称", sort: false, align: "center" },
+            { field: "name", title: "按钮名称", sort: false, align: "center" },
+            {
+                field: "icon", title: "图标", sort: false, align: "center", forrmatter(obj) {
+                    return "<i class='" + obj.icon + "'></i>";
+                }
+            },
+            { field: "script", title: "脚本", sort: false, align: "center" },
+            { field: "orderNo", title: "排序码", sort: false, align: "center" },
+            { field: "remark", title: "备注", sort: false, align: "center" }
+        ],
+        pagination: false,
+        searchnation: true,
+        Sidx: "CreateTime",
+        Sord: "desc",
+        Serial: true
+    });
+    $("[name='btn_select_box']").click(function () {
+        $grid.registersearchClick();
+    })
+    function btn_add_box() {
+        $.windowsOpen("/sysManage/MenuButton/Edit", "新增菜单按钮", '55%', '65%');
+    }
+    function btn_edit_box() {
+        var obj = $grid.gridRowValue();
+        if (obj==null) {
+            $.Alert({ resultSign: 1, message: "请选择一条数据！" });
+            return false;
+        }
+        $.windowsOpen("/sysManage/MenuButton/Edit?id=" + obj.menuButtonId, "编辑按钮", '55%', '65%');
+    }
+</script>

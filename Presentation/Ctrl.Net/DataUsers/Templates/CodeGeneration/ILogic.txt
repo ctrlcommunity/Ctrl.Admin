@@ -1,0 +1,18 @@
+﻿using Ctrl.Core.Business;
+using Ctrl.Core.Entities;
+using Ctrl.Domain.Models.Dtos;
+using Ctrl.{{NameSpace}}.Models.Entities;
+using System.Threading.Tasks;
+
+namespace Ctrl.{{NameSpace}}.Business
+{
+    /// <summary>
+    /// {{Description}}业务逻辑接口
+    /// </summary>
+    public interface I{{ClassName}}Logic: IAsyncLogic<{{ClassName}}>
+    {
+		{{PagingAction}}
+
+		{{SaveAction}}
+    }
+}

@@ -1,0 +1,314 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "cdnjs",
+      "library": "jquery@3.3.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.min.js",
+        "jquery.js",
+        "jquery.min.map"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/lib/jqueryui/",
+      "files": [
+        "jquery-ui.js",
+        "jquery-ui.min.js",
+        "jquery-ui.css"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "axios@0.18.0",
+      "destination": "wwwroot/lib/axios",
+      "files": [
+        "axios.js",
+        "axios.min.map",
+        "axios.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "limonte-sweetalert2@7.33.1",
+      "destination": "wwwroot/lib/sweetalert/",
+      "files": [
+        "sweetalert2.all.js",
+        "sweetalert2.all.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "promise-polyfill@8.1.0",
+      "destination": "wwwroot/lib/promise-polyfill",
+      "files": [
+        "dist/polyfill.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "lodash@4.17.11",
+      "destination": "wwwroot/lib/lodash/",
+      "files": [
+        "lodash.js",
+        "lodash.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "ztree@3.5.24",
+      "destination": "wwwroot/lib/zTree",
+      "files": [
+        "css/metroStyle/metroStyle.css",
+        "js/jquery.ztree.core.js",
+        "js/jquery.ztree.excheck.js",
+        "css/metroStyle/img/metro.png",
+        "css/metroStyle/img/line_conn.png"
+        
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "bootstrap@3.3.7",
+      "destination": "wwwroot/lib/bootstarp",
+      "files": [
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js",
+        "dist/fonts/glyphicons-halflings-regular.woff2",
+        "dist/css/bootstrap.css.map",
+        "dist/js/bootstrap.min.js",
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap.min.css.map"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-switch@3.3.4",
+      "destination": "wwwroot/lib/bootstrap-switch",
+      "files": [
+        "css/bootstrap3/bootstrap-switch.css",
+        "css/bootstrap3/bootstrap-switch.min.css",
+        "js/bootstrap-switch.js",
+        "js/bootstrap-switch.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "SyntaxHighlighter@3.0.83",
+      "destination": "wwwroot/lib/SyntaxHighlighter",
+      "files": [
+        "styles/shCoreDefault.min.css",
+        "scripts/shCore.js",
+        "scripts/shBrushCSharp.js",
+        "scripts/shBrushJScript.js"
+
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery-cookie@1.4.1",
+      "destination": "wwwroot/lib/jquery-cookie",
+      "files": [
+        "jquery.cookie.js",
+        "jquery.cookie.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@5.8.1",
+      "destination": "wwwroot/lib/font-awesome",
+      "files": [
+        "js/fontawesome.min.js",
+        "css/fontawesome.min.css",
+        "css/all.min.css",
+        "css/all.css",
+        "webfonts/fa-solid-900.woff",
+        "webfonts/fa-solid-900.woff2",
+        "webfonts/fa-brands-400.woff",
+        "webfonts/fa-brands-400.ttf",
+        "webfonts/fa-regular-400.woff",
+        "webfonts/fa-regular-400.ttf",
+        "webfonts/fa-brands-400.woff2",
+        "webfonts/fa-regular-400.woff2"
+      
+        
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "fontawesome-iconpicker@3.2.0",
+      "destination": "wwwroot/lib/fontawesome-iconpicker",
+      "files": [
+        "css/fontawesome-iconpicker.css",
+        "js/fontawesome-iconpicker.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "smartwizard@4.3.1",
+      "destination": "wwwroot/lib/smartwizard",
+      "files": [
+        "dist/css/smart_wizard.css",
+        "dist/js/jquery.smartWizard.js"
+
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "echarts@4.2.1",
+      "destination": "wwwroot/lib/echarts",
+      "files": [
+        "echarts.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-timepicker@0.5.2",
+      "destination": "wwwroot/lib/bootstrap-timepicker",
+      "files": [
+        "css/bootstrap-timepicker.css",
+        "js/bootstrap-timepicker.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-daterangepicker@3.0.5",
+      "destination": "wwwroot/lib/bootstrap-daterangepicker",
+      "files": [
+        "daterangepicker.css",
+        "daterangepicker.js"
+
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "moment.js@2.24.0",
+      "destination": "wwwroot/lib/moment",
+      "files": [
+        "moment.js",
+        "locale/zh-cn.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-fileinput@5.0.2",
+      "destination": "wwwroot/lib/bootstrap-fileinput",
+      "files": [
+        "css/fileinput.min.css",
+        "js/fileinput.min.js",
+        "js/locales/zh.min.js",
+        "js/locales/zh-TW.js",
+        "js/locales/zh.js",
+        "js/fileinput.js",
+        "img/loading-sm.gif",
+        "img/loading.gif"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "ckeditor@4.11.4",
+      "destination": "wwwroot/lib/ckeditor",
+      "files": [
+        "ckeditor.js",
+        "lang/zh-cn.js",
+        "config.js",
+        "styles.js",
+        "skins/kama/editor.css",
+        "skins/moono-lisa/editor.css",
+        "skins/moono/editor.css",
+        "plugins/scayt/dialogs/dialog.css",
+        "plugins/scayt/skins/moono-lisa/scayt.css",
+        "plugins/tableselection/styles/tableselection.css",
+        "plugins/wsc/dialogs/wsc.css",
+        "plugins/icons.png",
+        "contents.css",
+        "plugins/wsc/skins/moono-lisa/wsc.css",
+        "skins/moono-lisa/icons.png",
+        "skins/kama/dialog.css",
+        "skins/moono-lisa/dialog.css",
+        "plugins/about/dialogs/about.js",
+        "skins/moono/images/close.png",
+        "plugins/table/dialogs/table.js",
+        "plugins/balloonpanel/skins/moono-lisa/images/close.png",
+        "plugins/magicline/images/icon.png",
+        "skins/moono/dialog_ie.css",
+        "skins/moono/dialog_ie7.css",
+        "skins/moono/dialog_ie8.css",
+        "skins/moono/editor_ie7.css",
+        "skins/moono/editor_ie8.css",
+        "plugins/image/dialogs/image.js",
+        "plugins/link/dialogs/link.js",
+        "skins/moono-lisa/images/close.png",
+        "skins/moono/images/refresh.png",
+        "skins/moono/images/lock.png",
+        "skins/moono-lisa/images/lock.png",
+        "skins/moono-lisa/images/refresh.png",
+        "adapters/jquery.js",
+        "plugins/templates/dialogs/templates.css",
+        "skins/moono-lisa/editor_gecko.css"
+        
+        
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-datetimepicker@4.17.47",
+      "destination": "wwwroot/lib/bootstrap-datetimepicker",
+      "files": [
+        "js/bootstrap-datetimepicker.min.js",
+        "css/bootstrap-datetimepicker.min.css"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-datepicker@1.8.0",
+      "destination": "wwwroot/lib/bootstrap-datepicker",
+      "files": [
+        "css/bootstrap-datepicker.min.css",
+        "js/bootstrap-datepicker.min.js",
+        "locales/bootstrap-datepicker.zh-CN.min.js",
+        "css/bootstrap-datepicker3.min.css"
+
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "pace@1.0.2",
+      "destination": "wwwroot/lib/pace",
+      "files": [
+        "pace.min.js",
+        "themes/black/pace-theme-loading-bar.min.css",
+        "themes/black/pace-theme-flash.min.css"
+      ]
+
+    },
+    {
+      "provider": "cdnjs",
+      "library": "select2@4.0.7",
+      "destination": "wwwroot/lib/select2",
+      "files": [
+        "css/select2.min.css",
+        "js/i18n/zh-CN.js",
+        "js/select2.full.min.js",
+        "js/select2.min.js"
+      ]
+    }
+    //,
+    //{
+    //  "provider": "cdnjs",
+    //  "library": "parsley.js@2.9.0",
+    //  "destination": "wwwroot/lib/parsley/",
+    //  "files": [
+    //    "dist/i18n/zh_cn.js",
+    //    "src/parsley.css",
+    //    "dist/parsley.min.js"
+    //  ]
+    //}
+
+
+  ]
+}

@@ -1,0 +1,31 @@
+﻿using System;
+using Ctrl.Core.Business;
+using Ctrl.Core.Entities;
+using Ctrl.{{NameSpace}}.DataAccess;
+using Ctrl.Domain.Models.Dtos;
+using Ctrl.{{NameSpace}}.Models.Entities;
+using System.Threading.Tasks;
+
+namespace Ctrl.{{NameSpace}}.Business
+{
+    /// <summary>
+    ///     {{Description}}业务逻辑接口实现
+    /// </summary>
+    public class {{ClassName}}Logic:AsyncLogic<{{ClassName}}>,I{{ClassName}}Logic
+    {
+        #region 构造函数
+        private readonly I{{ClassName}}Repository _{{ClassNameLower}}Repository;
+
+        public {{ClassName}}Logic(I{{ClassName}}Repository {{ClassNameLower}}Repository):base({{ClassNameLower}}Repository) {
+            _{{ClassNameLower}}Repository = {{ClassNameLower}}Repository;
+        }
+
+        #endregion
+
+		#region 方法
+		{{PagingAction}}
+
+		{{SaveAction}}
+		#endregion
+	}
+}

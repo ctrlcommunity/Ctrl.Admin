@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+
+<div class="row">
+    <h3>绑定登录账号</h3>
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th style="width:80%">  <img class="img-circle" height="50" src="/images/ai.png" alt="ai" /> 人脸识别</th>
+                <td style="line-height: 50px;"><a id="ai" class="cursor-pointer">绑定</a></td>
+            </tr>
+            <tr>
+                <th style="width:80%">  <img class="img-circle" height="50" width="50" id="qq" src="~/images/bind_qq.png" alt="ai" /> QQ</th>
+                <td style="line-height: 50px;"><a class="cursor-pointer">绑定</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <video id="video" autoplay style="
+    height: 100%;
+    opacity: 0.1;
+    "></video>
+    <!--描绘video截图-->
+    <canvas id="canvas" width="480" height="320"></canvas>
+</div>
+<script>
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    $("#ai").click(function () {
+
+        if (navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia) {
+            getUserMediaToPhoto(error);
+        } else {
+            alert('你的浏览器不支持访问用户媒体设备');
+        }
+        function getUserMediaToPhoto(error) {
+            navigator.getUserMedia = navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia;
+
+            if (navigator.getUserMedia) {
+                navigator.getUserMedia({
+                    audio: true,
+                    video: {
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                    function (stream) {
+                        var video = document.querySelector('video');
+                        video.srcObject = stream;
+                        video.onloadedmetadata = function (e) {
+                            video.play();
+                            postFace();
+                        };
+                    },
+                    function (err) {
+                        error(err)
+                    }
+                );
+            } else {
+                var div = document.createElement("div");
+                div.innerHTML = 'getUserMedia not supported';
+                document.body.appendChild(div);
+                alert("getUserMedia not supported");
+            }
+        }
+
+        function error(error) {
+            console.log('访问用户媒体失败：', error.name, error.message);
+        }
+    })
+    function postFace() {
+        setTimeout(function () {
+            context.drawImage(video, 0, 0, 480, 320);
+            img = canvas.toDataURL('image/jpg')
+            img = img.split(',')[1]
+            $.post({
+                url: '/sysmanage/account/BindFaceSave',
+                data: {
+                    facebase: img
+                },
+                success: function (callback) {
+                    console.dir(callback.status);
+                    if (callback.status == true) {
+                        $.Alert({ resultSign: 0, message: "录脸成功！" });
+                    } else {
+                        $.Alert({ resultSign: 2, message: "录脸失败！" });
+                    }
+                },
+                error: function (callback) {
+                    postFace()
+                }
+            })
+        }, 300)
+    }
+</script>

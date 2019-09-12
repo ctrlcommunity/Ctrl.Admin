@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "sql执行日志表";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+<div class="row">
+    <div id="toolbar">
+        <h1 class="page-title">sql执行日志表</h1>
+        <div class="form-inline pull-right" id="toolbutton">
+                <button class="btn btn-default btn-xs" name="btn_select_box" type="submit"><i class=" fa fa-search fa-lg"></i> 查询 </button>
+
+            
+        </div>
+    </div>
+    <div id="ctrltable">
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var $grid = $("#ctrltable").ctrlGrid({
+        id: "#ctrltable",
+        url: "/sysManage/sqllog/GetList",
+        columns:[
+            {field:"sqlLogId",hidden:true},
+            {field:"createUserId",hidden:true},
+            {field:"createUserCode",hidden:true},
+            {field:"createUserName",hidden:true},
+            {field:"createTime",hidden:true},
+            {field:"operateSql",hidden:true},
+            {field:"endDateTime",hidden:true},
+            {field:"elapsedTime",hidden:true},
+            {field:"parameter",hidden:true},
+        ],
+        pagination: false,
+        searchnation: true,
+        pagerow: 15,
+        Sidx: "CreateTime",
+        Sord: "desc"
+    });
+    $("[name='btn_select_box']").click(function () {
+        $grid.registersearchClick();
+    })
+</script>

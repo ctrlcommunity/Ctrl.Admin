@@ -1,0 +1,513 @@
+﻿@{
+    ViewData["Title"] = "代码生成";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+@section style
+    {
+    <link href="~/js/Plugins/smartWizard/styles/smart_wizard.css" rel="stylesheet" type="text/css" />
+    <script src="~/js/Plugins/smartWizard/js/jquery.smartWizard.js"></script>
+    @*<link href="~/lib/smartwizard/dist/css/smart_wizard.css" rel="stylesheet" type="text/css" />
+        <script src="~/lib/smartwizard/dist/js/jquery.smartWizard.js"></script>*@
+    <script src="~/js/resource/language_zh.js"></script>
+    <link type="text/css" href="~/lib/SyntaxHighlighter/styles/shCoreDefault.min.css" rel="stylesheet" asp-append-version="true">
+    <script src="~/lib/SyntaxHighlighter/scripts/shCore.js" asp-append-version="true"></script>
+    <script src="~/lib//SyntaxHighlighter/scripts/shBrushCSharp.js" asp-append-version="true"></script>
+    <script src="~/lib/SyntaxHighlighter/scripts/shBrushJScript.js" asp-append-version="true"></script>
+        }
+<div>
+    <div id="wizard2" class="swMain" style="width:100%;">
+
+        <ul>
+            <li>
+                <a href="#step-1">
+                    <label class="stepNumber">1</label>
+                    <span class="stepDesc">
+                        生成列表选择
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-2">
+                    <label class="stepNumber">2</label>
+                    <span class="stepDesc">
+                        基本配置<br />
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-3">
+                    <label class="stepNumber">3</label>
+                    <span class="stepDesc">
+                        列表界面
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-4">
+                    <label class="stepNumber">4</label>
+                    <span class="stepDesc">
+                        编辑页面
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-5">
+                    <label class="stepNumber">5</label>
+                    <span class="stepDesc">
+                        查看代码
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-6">
+                    <label class="stepNumber">6</label>
+                    <span class="stepDesc">
+                        自动创建
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <div>
+            <div id="step-1">
+                <div class="ctrltable" id="tableMore">
+                </div>
+            </div>
+            <div id="step-2">
+                <form class="form-horizontal" role="form" id="base">
+                    <input name="Name" id="Name" hidden="hidden" />
+                    <input name="Value" id="Value" hidden="hidden" />
+                    <fieldset>
+                        <legend>文件名配置</legend>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_host">表主键名：</label>
+                            <div class="col-sm-4">
+                                <select name="TableKey" id="TableKey" class="form-control"></select>
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_name">实体类名：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" name="entity" id="entity" type="text" placeholder="请输入实体类名" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_username">DataAccess接口：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="dataAccessInterface" name="dataAccessInterface" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_password">DataAccess实现：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="dataAccess" name="dataAccess" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_username">Business接口：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="businessInterface" name="businessInterface" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_password">Business实现：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="business" name="business" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_username">控制器：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="controller" name="controller" type="text" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_password">列表页名：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="list" name="list" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_username">表单页名：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="edit" name="edit" type="text" />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>路径配置</legend>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_host">实体输出路径：</label>
+                            <div class="col-sm-4">
+                                <input name="entityPath" id="entityPath" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_name">Business输出路径：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" name="businessPath" id="businessPath" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_host">Business接口输出路径：</label>
+                            <div class="col-sm-4">
+                                <input name="businessInterfacePath" id="businessInterfacePath" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_name">DataAccess接口输出路径：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" name="dataAccessInterfacePath" id="dataAccessInterfacePath" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ds_host">DataAccess输出路径：</label>
+                            <div class="col-sm-4">
+                                <input name="dataAccessPath" id="dataAccessPath" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="ds_name">控制器输出路径：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" name="controllerPath" id="controllerPath" type="text" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div id="step-3">
+                <div id="tableListPage" class="ctrltable"></div>
+            </div>
+
+            <div id="step-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul id="treeMenu" class="ztree"></ul>
+                    </div>
+                    <div class="col-md-9">
+                        <form class="form-horizontal ctrl-form" id="genform">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">方法：</label>
+                                <div class="input-group  col-sm-10">
+                                    <input type="text" name="Action" id="Action"  class="form-control input-sm">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                @*<div style="width:30%;float:left">
+                   
+                </div>*@
+                @*<div style="width:65%;">
+                    <table border="0" cellspacing="0" cellpadding="10" class="tbcss"></table>
+                </div>*@
+            </div>
+
+            <div id="step-5">
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#codeForEntities">实体</a></li>
+                        <li><a href="#codeForDataAccessInterface">数据访问接口</a></li>
+                        <li><a href="#codeForDataAccess">数据访问接口实现</a></li>
+                        <li><a href="#codeForBusinessInterface">业务逻辑接口</a></li>
+                        <li><a href="#codeForBusiness">业务逻辑接口实现</a></li>
+                        <li><a href="#codeForController">控制器</a></li>
+                        <li><a href="#codeForList">列表页</a></li>
+                        <li><a href="#codeForEdit">表单页</a></li>
+                    </ul>
+                    <div id="codeForEntities">
+                    </div>
+                    <div id="codeForDataAccessInterface">
+                    </div>
+                    <div id="codeForDataAccess">
+                    </div>
+                    <div id="codeForBusinessInterface">
+                    </div>
+                    <div id="codeForBusiness">
+                    </div>
+                    <div id="codeForController">
+                    </div>
+                    <div id="codeForList">
+                    </div>
+                    <div id="codeForEdit">
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-6">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="dialog" style="display:none" title="编辑控件">
+    <input id="iptId" style="display:none" />
+    <label>字段名称：</label><input id="iptName" /><br />
+    <label>字段类型：</label>
+    <select id="setType">
+        <option value="0">文本框</option>
+        <option value="1">下拉框</option>
+        <option value="2">文本域</option>
+    </select><br />
+    <input type="submit" value="保 存" id="btnForm" class="btn" />
+</div>
+
+<script type="text/javascript">
+    var fileDataObj,
+        listDataJson = [],
+        fromarr = new Array(),
+        ckdataList;
+    $('#wizard2').smartWizard({
+        transitionEffect: 'slide', onFinish: onFinishCallback, onShowStep: showstepCallback
+    });
+
+
+    function onFinishCallback() {
+        createFile();
+    }
+    function showstepCallback(obj) {
+        var step_num = obj.attr('rel');
+        switch (step_num) {
+            case "2"://基本配置页面
+                setBaseInfo();
+                break;
+            case "3"://列表页面
+                setlistDataJson();
+                break;
+            case "4"://生成代码
+                setCreateListDataJson();
+                break;
+            case "5"://生成代码
+                CreateCode();
+                break;
+            case "6"://自动创建
+
+                break;
+        }
+    }
+    var $grid = $("#tableMore").ctrlGrid({
+        id: "#tableMore",
+        url: "/SysManage/CodeGeneration/GetDataBaseTables",
+        columns: [
+            { field: 'ck', checkbox: true },
+            {
+                field: 'name', title: '表名', align: 'center'
+            },
+            { field: 'value', title: '描述', align: 'center' },
+            { field: 'createdate', title: '创建时间', align: 'center' }
+        ]
+    });
+    $(function () {
+        $("#tabs").tabs();
+    });
+    function setBaseInfo() {
+        $grid.registerGetRows(function (obj) {
+            if (obj.length != 1) {
+                $.Alert({ resultSign: 1, message: "请选择一个表!" });
+                return false;
+            }
+            ckdataList = obj;
+            var tableName = obj[0].name.replace("Sys", "System");
+            var replaceTableName = tableName.replace(/_/g, "");
+            var tableNameSplit = tableName.split("_");
+            var tableNameSplitBefore = tableNameSplit[0];
+            var tableNameSplitAfter = tableNameSplit[1].replace(/_/g, "");
+            $("#entity").val(replaceTableName);
+            $("#dataAccessInterface").val("I" + replaceTableName + "Repository");
+            $("#dataAccess").val(replaceTableName + "Repository");
+            $("#businessInterface").val("I" + replaceTableName + "Logic");
+            $("#business").val(replaceTableName + "Logic");
+            $("#Name").val(tableName);
+            $("#controller").val(tableNameSplitAfter + "Controller");
+            $("#list").val("Index");
+            $("#edit").val("Edit");
+            $("#Value").val(obj[0].value);
+            $post("/SysManage/CodeGeneration/GetDataBaseColumn", $.param({ id: obj[0].name })).then(function (data) {
+                var strhtml = "";
+                _.forEach(data, function (row, i) {
+                    strhtml += "<option value=" + row.fieldName + ">" + row.fieldName + "(" + row.remarks + ")</option>";
+                });
+                $("#TableKey").html(strhtml);
+            });
+            setOutputFilePath(tableNameSplitBefore);
+        })
+        return false;
+    }
+    //输出路径
+    function setOutputFilePath(tableNameSplitBefore) {
+        var path = Language.common.codegenerationpath;
+        $("#entityPath").val(path + "\\Domain\\" + tableNameSplitBefore + "\\Ctrl.Domain.Models\\Entities");
+        $("#dataAccessInterfacePath").val(path + "\\Domain\\" + tableNameSplitBefore + "\\Ctrl.Domain.DataAccess");
+        $("#dataAccessPath").val(path + "\\Domain\\" + tableNameSplitBefore + "\\Ctrl.Domain.DataAccess");
+        $("#businessInterfacePath").val(path + "\\Domain\\" + tableNameSplitBefore + "\\Ctrl.Domain.Business");
+        $("#businessPath").val(path + "\\Domain\\" + tableNameSplitBefore + "\\Ctrl.Domain.Business");
+        $("#controllerPath").val(path + "\\Presentation\\Ctrl.Net\\Areas\\sysManage\\Controllers");
+    }
+    function setlistDataJson() {
+        $("#tableListPage").ctrlGrid({
+            id: "#tableListPage",
+            url: "/SysManage/CodeGeneration/GetDataBaseColumn?id=" + ckdataList[0].name,
+            columns: [
+                { field: 'fieldName', title: '字段名称', align: 'center' },
+                {
+                    field: 'remarks', title: '显示名称', align: 'center', formatter: function (row) {
+                        return "<input name='Remarks' value=" + row.remarks + ">";
+                    }
+                },
+                {
+                    field: 'options', title: '选项', align: 'center', formatter: function () {
+                        return "<input checked type=checkbox name=display>显示<input type=checkbox name=sort>排序";
+                    }
+                },
+                {
+                    field: 'width', title: '宽度', align: 'center', formatter: function () {
+                        return "<input name='Width' value='100'/>";
+                    }
+                },
+                {
+                    field: 'align', title: '对齐方式', align: 'center', formatter: function () {
+                        return "<select name='Align'><option value=center>center</option><option value=left>left</option><option value=right>right</option></select>";
+                    }
+                },
+                { field: 'orderNo', title: '序号', align: 'center' },
+            ]
+        });
+    }
+    //创建文件
+    function createFile() {
+        //判断是否已生成代码
+        if (fileDataObj != null) {
+            //为后台提供数据并生成文件
+            $post("/SysManage/CodeGeneration/CreateFile", $.param(fileDataObj)).then(function (data) {
+                console.dir(data);
+            });
+        } else {
+            createCode();
+        }
+    }
+    //生成代码
+    function CreateCode() {
+        var $form = $('#base');
+
+        var datainfo = {
+            Base: "",
+            List: JSON.stringify(listDataJson),
+            Edit: JSON.stringify(fromarr)
+        }
+        datainfo.Base = JSON.stringify($form.serializeJson());
+        $post("/SysManage/CodeGeneration/CreateCode", $.param(datainfo)).then(function (data) {
+            $("#codeForEntities").html('<textarea name="SyntaxHighlighter" class="brush: c-sharp;">' + data.entities + '</textarea>');
+            $("#codeForDataAccessInterface").html('<textarea name="SyntaxHighlighter" class="brush: c-sharp;">' + data.dataAccessInterface + '</textarea>');
+            $("#codeForDataAccess").html('<textarea name="SyntaxHighlighter" class="brush: c-sharp;">' + data.dataAccess + '</textarea>');
+            $("#codeForBusinessInterface").html('<textarea name="SyntaxHighlighter" class="brush: c-sharp;">' + data.businessInterface + '</textarea>');
+            $("#codeForBusiness").html('<textarea name="SyntaxHighlighter" class="brush: c-sharp;">' + data.business + '</textarea>');
+            $('#codeForController').html('<textarea name="SyntaxHighlighter" class="brush: c-sharp;">' + data.controller + '</textarea>');
+            $('#codeForList').html('<textarea name="SyntaxHighlighter" class="brush: c-sharp;">' + data.list + '</textarea>');
+            $('#codeForEdit').html('<textarea name="SyntaxHighlighter" class="brush: c-sharp;">' + data.edit + '</textarea>');
+            SyntaxHighlighter.config.tagName = 'textarea';
+            SyntaxHighlighter.highlight();
+            fileDataObj = data;
+            fileDataObj["Base"] = datainfo.Base;
+        })
+
+    }
+
+    //给listDataJson赋值
+    function setCreateListDataJson() {
+        var setting = {
+            view: {
+                dblClickExpand: false,
+                selectedMulti: false
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            check: {
+                enable: true
+            },
+            callback: {
+                onCheck: onCheck
+            }
+        };
+        $post("/sysManage/CodeGeneration/GetDataBaseColumnsTree",
+            $.param({
+                Name: ckdataList[0].name
+            })).then(function (data) {
+                $.fn.zTree.init($("#treeMenu"), setting, data);
+            })
+
+
+        function onCheck(e, treeId, treeNode) {
+            var from = {};
+            from.ControlName = treeNode.code;
+            from.ControlId = treeNode.id;
+            from.ControlType = 0;
+            var str = `
+                        
+                    
+                        <tr>
+                            <th data-id='${treeNode.id}'>
+                                 ${treeNode.code}：
+                            </th>
+                            <td width="80%">
+                                <input type="text" class="ctrl_input" name="${treeNode.id}" id="${treeNode.id}" />
+                            </td>
+                            <td id="edit">
+                                <a>编辑</a>
+                            </td>
+                        </tr>`;
+
+            $("#genform").append(str);
+            fromarr.push(from);
+        };
+        $(".tbcss").delegate("tr #edit", "click", function () {
+            $("#iptName").val($(this).prev().prev().text());
+            $("#iptId").val($(this).prev().prev().data('id'));
+            $("#dialog").dialog();
+        })
+        $("#btnForm").click(function () {
+            var from = {};
+            from.ControlName = $("#iptName").val();
+            from.ControlType = $("#setType").val();
+            from.ControlId = $("#iptId").val();
+            _.remove(fromarr, function (f) { return f.ControlId == $("#iptId").val() });
+            fromarr.push(from);
+            $(".tbcss").empty();
+            _.forEach(fromarr, function (data, i) {
+
+                var str = `   <tr>
+                            <th data-id='${data.ControlId}'>
+                                 ${data.ControlName}：
+                            </th>
+                            <td width="80%">
+                                <input type="text" class="ctrl_input" name="${data.ControlId}" id="${data.ControlId}" />
+                            </td>
+                            <td id="edit">
+                                <a>编辑</a>
+                            </td>
+                        </tr>`;
+
+                $(".tbcss").append(str);
+            })
+        })
+        var allList = $("tr", $("#tableListPage"));
+        listDataJson = [];
+        $(allList).each(function () {
+            var data = {
+            };
+            $('td', $(this)).each(function (index, td) {
+                if ($(td).attr("data-field") == "fieldName") {
+                    data["field"] = $(td).text();
+                }
+                if ($(td).attr("data-field") == "remarks") {
+                    data["title"] = $("[name='Remarks']", td).val();
+                }
+                if ($(td).attr("data-field") == "width") {
+                    data["Width"] = $("[name='Width'] ", td).val();
+                }
+                if ($(td).attr("data-field") == "options") {
+                    data["sort"] = $("[name='sort']", td).is(':checked');
+                    data["Hidden"] = $("[name='display']", td).is(':checked');
+                }
+            });
+            if (!$.isEmptyObject(data)) {
+                console.dir(data);
+                listDataJson.push(data);
+            }
+
+        });
+
+    }
+
+</script>

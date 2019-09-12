@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "_LayoutPageBase.cshtml";
+}
+@section style
+    {
+    <link href="~/lib/bootstarp/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/style.less" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/js/Plugins/layer/theme/default/layer.css" asp-append-version="true" media="all" />
+    <link rel="stylesheet" type="text/css" href="~/lib/parsley/src/parsley.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/lib/zTree/css/metroStyle/metroStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap-fileinput/css/fileinput.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" asp-append-version="true">
+    <link rel="stylesheet" type="text/css" href="~/lib/fontawesome-iconpicker/css/fontawesome-iconpicker.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/lib/select2/css/select2.min.css" asp-append-version="true" />
+    <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstarp/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/lib/moment/moment.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap-fileinput/js/fileinput.min.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="~/lib/lodash/lodash.min.js" asp-append-version="true"></script>
+    <script src="~/lib/axios/axios.min.js" asp-append-version="true"></script>
+    <script src="~/js/util/http.js" asp-append-version="true"></script>
+    <script src="~/lib/parsley/dist/parsley.min.js" asp-append-version="true"></script>
+    <script  type="text/javascript" src="~/lib/ckeditor/ckeditor.js" asp-append-version="true"></script>
+    <script  type="text/javascript" src="~/lib/ckeditor/lang/zh-cn.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap-fileinput/js/locales/zh.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="~/lib/parsley/dist/i18n/zh_cn.js" asp-append-version="true"></script>
+    <script src="~/lib/sweetalert/sweetalert2.all.min.js" asp-append-version="true"></script>
+    <script src="~/lib/fontawesome-iconpicker/js/fontawesome-iconpicker.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise/dist/es6-promise.auto.js" asp-append-version="true"></script>
+    <script src="https://cdn.bootcss.com/jquery-browser/0.1.0/jquery.browser.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/Plugins/layer/layer.js" asp-append-version="true"></script>
+    <script src="https://cdn.bootcss.com/less.js/3.9.0/less.min.js" asp-append-version="true"></script>
+    <script src="~/lib/zTree/js/jquery.ztree.core.js" asp-append-version="true"></script>
+    <script src="~/lib/zTree/js/jquery.ztree.excheck.js" asp-append-version="true"></script>
+    <script src="~/lib/select2/js/select2.full.min.js" asp-append-version="true"></script>
+    <script src="~/js/util/Alert.js" asp-append-version="true"></script>
+    <script src="~/js/util/Common.js" asp-append-version="true"></script>
+    @RenderSection("style", false)
+}
+<div class="container pull-left">
+    @RenderBody()
+</div>
+
+
+<script>
+    $("body").delegate("#rst", "click", function () {
+        parent.layer.closeAll();
+    })
+</script>

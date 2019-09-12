@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+<div class="row">
+    <div class="col-sm-3">
+
+        <ul id="treeMenu" class="ztree"></ul>
+    </div>
+
+    <div class="col-sm-9" id="Menu_buttons">
+    </div>
+</div>
+
+
+<input type="submit" value="保 存" id="btnForm" class="btn" style='position: fixed;bottom: 10px;margin-left: 40%;' />
+<script>
+    var checkid = "";
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeClick: zTreeBeforeClick
+        }
+    };
+    $post("/sysManage/Permission/GetMenuHavePermissionByPrivilegeMasterValue",
+        $.param({
+            PrivilegeAccess: 0,
+            PrivilegeMasterValue: $.getQueryString("roleid"),
+            privilegeMaster: 0
+        })).then(function (data) {
+            $.fn.zTree.init($("#treeMenu"), setting, data);
+        })
+    var checkedArray = new Array();
+    $post('/sysManage/Permission/GetPermissionByPrivilegeMasterValue', $.param({
+        PrivilegeMasterValue: $.getQueryString("roleid"), PrivilegeMaster: 0,
+        PrivilegeAccess: 1
+
+    })
+    ).then(function (response) {
+        _.forEach(response, function (data, i) {
+            checkedArray.push(data.privilegeAccessValue);
+
+        })
+    });
+
+    $("#Menu_buttons").delegate("input[type='checkbox']", "change", function () {
+        var _self = this;
+        if ($(this).is(":checked")) {
+            checkedArray.push($(this).val());
+        } else {
+
+            console.dir(checkedArray);
+            checkedArray = _.remove(checkedArray, function (n) {
+                return n!=$(_self).val();
+            });
+        }
+    });
+
+    function zTreeBeforeClick(treeId, treeNode, clickFlag) {
+        var treebtn = [];
+        $post("/sysManage/MenuButton/GetMenuButtonByMenuId", $.param({ Id: treeNode.id })).then(function (data) {
+            treebtn = data;
+          
+        })
+        $post('/sysManage/Permission/GetPermissionByPrivilegeMasterValue', $.param({
+            PrivilegeMasterValue: $.getQueryString("roleid"), PrivilegeMaster: 0,
+            PrivilegeAccess: 1, PrivilegeMenuId: treeNode.id
+
+        })
+        ).then(function (response) {
+            var str = "";
+            _.forEach(treebtn, function (data, i) {
+                str += `<input type="checkbox" ${_.find(response, function (o) { return o.privilegeAccessValue == data.menuButtonId})!=null?'checked':''} value="${data.menuButtonId}" id='${data.menuButtonId}'/>${data.name}`;
+            })
+            $("#Menu_buttons").empty().append(str);
+        });
+
+    };
+    $("#btnForm").click(function () {
+        $post("/sysManage/Permission/SavePermission", $.param({
+            PrivilegeAccess: 1, PrivilegeMasterValue: $.getQueryString("roleid"), privilegeMaster: 0,
+            MenuPermissions: _.uniq(checkedArray).join(",")
+        })).then(function (data) {
+            $.Alert(data, function () {
+                if (data.resultSign == 0) {
+                     parent.window.location.reload();
+                }
+            });
+        })
+
+    });
+
+</script>

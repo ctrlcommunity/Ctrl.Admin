@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "后台管理系统-登录";
+}
+@section style{
+    <style type="text/css">
+        .parsley-required {
+            margin: 3px 0px 0px 30px;
+            color: red;
+            float: left;
+        }
+    </style>
+}
+<div class="login">
+    <div class="login-header">
+        <div class="container">
+            <a class="pull-left"><img class="logo" src="~/images/logo.png" alt="开创云"></a>
+        </div>
+    </div>
+    <video id="video" autoplay style="
+    height: 100%;
+    opacity: 0.1;
+    "></video>
+    <!--描绘video截图-->
+    <canvas id="canvas" width="480" height="320"></canvas>
+    <div class="login-con">
+        <div class="panel panel-default">
+            <div slot="header" class="clearfix panel-heading">
+                <i class="far fa-edit"></i><span> 欢迎登录</span>
+            </div>
+            <div class="panel-body form-con">
+                <form class="form-horizontal">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" name="Code" value="admin" placeholder="请输入登录名" data-parsley-required="登录名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group ">
+                            <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                            <input type="password" class="form-control" name="Password" value="admin" placeholder="请输入密码" data-parsley-required="密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btnLogin">登  录</button>
+                    </div>
+                </form>
+                <p class="ot_login">
+                    其他方式登录:<img class="img-circle image-responsive" src="/images/qq.jpg" alt="QQ" />
+                    <img class="img-circle image-responsive" id="ai" src="/images/ai.png" alt="ai" />
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <footer class="navbar-fixed-bottom">© @DateTime.Now.Year Ctrl <a href="https://www.ctrl.cn/" target="_blank">开创云</a></footer>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        var $form = $('form');
+        var instance = $form.parsley();
+        $("#btnLogin").bind("click", function () {
+            $("#btnLogin").attr({ "disabled": "disabled" });
+            $("#btnLogin").text("登录中.....");
+            if (instance.isValid()) {
+                $post("/SysManage/Account/Submit", $form.serialize()).then(function (data) {
+                    $.Alert(data, function () {
+                        if (data.resultSign==0) {
+                            location.href = "/SysManage/Home/Index";
+                        }
+                        $("#btnLogin").removeAttr("disabled");
+                        $("#btnLogin").text("登  录");
+                    });
+                })
+                return false;
+            } else {
+                $("#btnLogin").removeAttr("disabled");
+                 $("#btnLogin").text("登  录");
+            }
+        })
+    });
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    $("#ai").click(function () {
+        if (navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia) {
+            getUserMediaToPhoto(error);
+        } else {
+            alert('你的浏览器不支持访问用户媒体设备');
+        }
+        function getUserMediaToPhoto(error) {
+            navigator.getUserMedia = navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia;
+
+            if (navigator.getUserMedia) {
+                navigator.getUserMedia({
+                    audio: true,
+                    video: {
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                    function (stream) {
+                        var video = document.querySelector('video');
+                        video.srcObject = stream;
+                        video.onloadedmetadata = function (e) {
+                            video.play();
+                            postFace();
+                        };
+                    },
+                    function (err) {
+                        error(err)
+                    }
+                );
+            } else {
+                var div = document.createElement("div");
+                div.innerHTML = 'getUserMedia not supported';
+                document.body.appendChild(div);
+                alert("getUserMedia not supported");
+            }
+        }
+
+        function error(error) {
+            console.log('访问用户媒体失败：', error.name, error.message);
+        }
+    })
+    function postFace() {
+        setTimeout(function () {
+            context.drawImage(video, 0, 0, 480, 320);
+            img = canvas.toDataURL('image/jpg')
+            img = img.split(',')[1]
+            $.post({
+                url: '/sysmanage/account/LoginFaceSubmit',
+                data: {
+                    facebase: img
+                },
+                success: function (data) {
+                    $.Alert(data, function () {
+                        if (data.resultSign==0) {
+                            location.href = "/SysManage/Home/Index";
+                        }
+                        postFace()
+                    });
+                },
+                error: function (callback) {
+                    postFace()
+                }
+            })
+        }, 300)
+    }
+
+</script>

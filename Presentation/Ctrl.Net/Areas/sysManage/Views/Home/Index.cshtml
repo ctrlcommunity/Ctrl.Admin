@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["Title"] = "网站管理平台";
+}
+@using Ctrl.Core.Core.Auth
+<div class="container-fluid wapper">
+    <div class="row" style="height:100%">
+        <div class="nav-bar navbar-default navbar-static-side ">
+            <img src="/images/smlogo .png" style="padding: 1px 15px;display: none" id="smlogo">
+            <div class="header">
+                <div style="background: #252630">
+                    <a href="#">
+                        <img class="logo" src="/images/logo1.png">
+                    </a>
+                </div>
+                <div class="dropdown profile-element">
+                    <span><img alt="image" class="img-circle pull-left " style="height: 50px;" src="@(string.IsNullOrWhiteSpace(AuthenticationExtension.Current().ImgUrl)?"/images/u.jpg":AuthenticationExtension.Current().ImgUrl)"></span>
+                    <a data-toggle="dropdown" class="dropdown-toggle " href="#">
+                        <span class="clear">
+                            <span class="block cursor-pointer"><strong class="font-bold">@(AuthenticationExtension.Current().Name)</strong></span>
+                            <span class="text-muted cursor-pointer block">@(AuthenticationExtension.Current().RoleName)<b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a href="/sysManage/Account/PerInfo" target="iFrameMain" id="perinfo">个人资料</a>
+                        </li>
+                        <li>
+                            <a href="/sysManage/Account/BindAccount" target="iFrameMain" id="perinfo">绑定登录账号</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/sysManage/Account/Logout">安全退出</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+                <ul id="main-nav" class="sidebar nav nav-tabs nav-stacked " style=""></ul>
+
+            </nav>
+        </div>
+        <div class="ctrl-content container">
+
+            <nav class="nav navbar navbar-headers " role="navigation">
+                <div class="nav navbar-nav ">
+                    <a id="mini" class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+
+                </div>
+                <div class="navbar-right nav nav-sysbar">
+
+                </div>
+            </nav>
+            <div class="contain ">
+                <iframe src="http://admin.ctrl.cn/spread.aspx"
+                        frameborder="0" name="iFrameMain" class="iFrameMain"></iframe>
+            </div>
+
+        </div>
+    </div>
+    @section script{
+        <script type="text/javascript">
+            $(function () {
+                $('#mini').on('click', function () {
+                    if (!$('#main-nav').hasClass('nav-mini')) {
+                        $('.nav-bar').addClass('nav-mini');
+                        $('.sidebar').addClass('nav-mini');
+                        $('.header').css('display', 'none');
+                        $("#smlogo").css('display', 'block');
+                        $(".ctrl-content ").css('padding-left', '60px');
+                        $('#main-nav li ul a').css('display', 'none');
+                    } else {
+                        $('#main-nav').removeClass('nav-mini');
+                        $('.nav-bar').removeClass('nav-mini');
+                        $('.header').css('display', 'block');
+                        $("#smlogo").css('display', 'none');
+                        $(".ctrl-content ").css('padding-left', '220px');
+                        $('#main-nav li a').css('display', 'block');
+                    }
+                });
+            });
+            $("#main-nav ").delegate('li a', 'click', function () {
+                $("#main-nav li").removeClass("active");
+                $(".sidebar a").css("color", "#a7b1c2");
+                $(this).parent().addClass("active");
+                $(this).css("color", "white");
+            })
+            $post("/sysManage/Home/LoadMenuPermission", null).then(function (data) {
+                var strhtml = "";
+                _.forEach(data, function (row, i) {
+                    if ($.IsEmptyGuid(row.pId)) {
+                        strhtml += `<li>
+                                                <a href="#${row.id}" class="collapsed" data-toggle="collapse">
+                                                    <i class="${row.icon}"></i>
+                                                    <span>	${row.name}</span>
+                                                    <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                                                </a>`;
+                        strhtml += ` <ul id="${row.id}" class="nav nav-list secondmenu collapse" style="height: 0px;">`;
+                        _.forEach(_.filter(data, function (o) {
+                            return o.pId == row.id
+                        }), function (row1, j) {
+                            var filterArr = _.filter(data, function (o) {
+                                return o.pId == row1.id
+                            });
+
+                            if (_.size(filterArr) > 0) {
+                                strhtml += ` <li><a href="#${row1.id}" class="collapsed" data-toggle="collapse" href="${row1.url}" target="iFrameMain"><span> <i class="${row1.icon}"></i>&nbsp;${row1.name}</span></a>
+                                                        <ul id="${row1.id}" class="nav nav-list secondmenu collapse" style="height: 0px;"> `;
+                                _.forEach(filterArr, function (row2, k) {
+
+                                    strhtml += ` <li><a href="${row2.url}"target="iFrameMain"><span> <i class="${row2.icon}"></i>&nbsp;${row2.name}</span></a></li>`;
+                                })
+                                strhtml += '</ul></li>';
+                            } else {
+                                strhtml += ` <li><a href="${row1.url}" target="iFrameMain"><span> <i class="${row1.icon}"></i>&nbsp;${row1.name}</span></a></li>`;
+                            }
+                        });
+
+                        strhtml += `</ul>`;
+                        strhtml += "</li>";
+                    }
+
+                })
+                $("#main-nav").append(strhtml);
+            });
+        </script>
+    }

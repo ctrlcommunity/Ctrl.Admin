@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "{{Description}}";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+<div class="row">
+    <div id="toolbar">
+        <h1 class="page-title">{{Description}}</h1>
+        <div class="form-inline pull-right">
+                <button class="btn btn-default btn-xs" name="btn_select_box" type="submit"><i class=" fa fa-search fa-lg"></i> 查询 </button>
+
+            
+        </div>
+    </div>
+    <div id="ctrltable">
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var $grid = $("#ctrltable").ctrlGrid({
+        id: "#ctrltable",
+        url: "/sysManage/{{ControllerName}}/GetList",
+        columns:{{ColModel}},
+        pagination: {{IsPaging}},
+        pagerow: 15,
+        Sidx: "CreateTime",
+        Sord: "desc"
+    });
+    $("[name='btn_select_box']").click(function () {
+        $grid.registersearchClick();
+    })
+</script>

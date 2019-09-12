@@ -1,0 +1,172 @@
+@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+@model SystemArticle
+<form class="form-horizontal ctrl-form">
+    @Html.AntiForgeryToken()
+    <input hidden value="@Model.ArticleId" name="ArticleId" id="ArticleId" />
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 标题：</label>
+        <div class='form-group  col-sm-10'>
+            <input type='text' name='Title' id='Title' class='form-control input-sm' value="@Model.Title" data-parsley-required="标题">
+        </div>
+    </div>
+    <div class='hr-line-dashed'></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">文章类型：</label>
+        <div class="form-group  col-sm-10">
+            <input id="txtArticleType" type="text" class="form-control input-sm" readonly data-parsley-required="文章类型" />
+            <input name="ArticleTypeId" id="ArticleTypeId" type="hidden" readonly />
+            <div id="menuContent" class="menuContent" style="display:none; box-shadow: #464343 0px 0px 18px;background-color: white;">
+                <ul id="treeMenu" class="ztree" style="margin-top:0; width:160px;"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 是否显示：</label>
+        <div class='form-group  col-sm-10'>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="isShow" value="true" id="isShow" @(Model.isShow ? "checked" : "")> 显示
+            </label>
+        </div>
+    </div>  <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 排序码：</label>
+        <div class='form-group  col-sm-10'>
+            <input type='text' name='OrderNo' id='OrderNo' class='form-control input-sm' value="@Model.OrderNo"> 
+        </div>
+    </div>  <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 创建时间：</label>
+        <div class='input-group  col-sm-10'>
+            <input type="text" name='CreateTime' id='CreateTime' data-parsley-required="创建时间" class="form-control" value="@(string.IsNullOrWhiteSpace(Model.CreateTime.ToString())?DateTime.Now.ToString("yyyy-MM-dd"):Model.CreateTime?.ToString("yyyy-MM-dd"))">
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+    </div>
+
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 简介：</label>
+        <div class='form-group  col-sm-10'>
+            <textarea name='Summary' id='Summary' class="form-control">@Model.Summary</textarea>
+        </div>
+    </div>
+
+
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 文章内容：</label>
+        <div class='form-group col-sm-10'>
+            <textarea name='Contents' id='Contents' >@Model.Contents</textarea>
+        </div>
+    </div>
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 缩略图：</label>
+        <div class='form-group  col-sm-10'>
+            @*<img src="@(string.IsNullOrWhiteSpace(Model.Pic)?"/images/noimage.png":Model.Pic) " id="preimg" style="height:100px;margin:5px;" />*@
+            <input type="file" id='File' class='form-control input-sm'>
+            <input type='text' name='Pic' id='Pic' hidden="hidden" value="@Model.Pic">
+        </div>
+    </div>
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 作者：</label>
+        <div class='form-group  col-sm-10'>
+            <input type='text' name='Author' id='Author' class='form-control input-sm' value="@Model.Author">
+        </div>
+    </div>
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'> 阅读量：</label>
+        <div class='form-group  col-sm-10'>
+            <input type='text' name='Counter' id='Counter' class='form-control input-sm' value="@Model.Counter">
+        </div>
+    </div>
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'>  SEO标题：</label>
+        <div class='form-group  col-sm-10'>
+            <input type='text' name='SeoTitle' id='SeoTitle' class='form-control input-sm' value="@Model.SeoTitle">
+        </div>
+    </div>
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'>  SEO关键字：</label>
+        <div class='form-group  col-sm-10'>
+            <input type='text' name='SeoKey' id='SeoKey' class='form-control input-sm' value="@Model.SeoKey">
+        </div>
+    </div>
+    <div class='hr-line-dashed'></div>
+    <div class='form-group'>
+        <label class='col-sm-2 control-label'>  SEO描述：</label>
+        <div class='form-group col-sm-10'>
+            <textarea type='text' name='SeoDes' id='SeoDes' class='form-control' rows="3">@Model.SeoDes</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="保 存" id="btnForm" class="btn btn-primary" />
+            <input id="rst" class="btn" type="button" value="返 回" name="rst" />&nbsp;
+        </div>
+    </div>
+
+</form>
+<script>
+    $(function () {
+        var $form = $('form');
+        var instance = $form.parsley();
+
+        $.editor("Contents");
+        $('#CreateTime').ctrldatepicker();
+
+        $("#File").fileimage("/sysManage/UserControl/FileSave", $("#Pic"),$("#Pic").val());
+     
+        $post("/sysManage/ArticleType/GetArticleTypeTree", null).then(function (data) {
+              @{
+                if (!Model.ArticleTypeId.IsEmptyGuid())
+                {
+                    <text>
+        $("#ArticleTypeId").val('@Model.ArticleTypeId');
+        $("#txtArticleType").val(_.find(data, function(o) { return o.id == '@Model.ArticleTypeId'; }).name);
+                 </text>
+
+                }
+            }
+            $('#treeMenu').zTreeSelect("#menuContent", "#txtArticleType", data, function (e, treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj(treeId);
+                nodes = zTree.getSelectedNodes(),
+                    v = "", id = "";
+                nodes.sort(function compare(a, b) { return a.id - b.id; });
+                for (var i = 0, l = nodes.length; i < l; i++) {
+                    v += nodes[i].name + ",";
+                    id = nodes[i].id;
+                }
+                if (v.length > 0) v = v.substring(0, v.length - 1);
+                $("#txtArticleType").val(v);
+                $("#ArticleTypeId").val(id);
+            });
+        })
+
+        $("#btnForm").bind("click", function () {
+            $("#btnForm").attr({ "disabled": "disabled" });
+            if (instance.isValid()) {
+                $.subeditor();//同步文本框值
+                $post("/SysManage/Article/SaveArticle", $form.serialize()).then(function (data) {
+                    $.Alert(data, function () {
+                        if (data.resultSign == 0) {
+                            parent.window.location.reload();
+                        }
+                    });
+                });
+                $("#btnForm").removeAttr("disabled");
+                return false;
+            } else {
+                $("#btnForm").removeAttr("disabled");
+            }
+        })
+
+    });
+</script>

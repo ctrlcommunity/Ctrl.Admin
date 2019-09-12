@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "字典";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+<div class="row">
+    <div id="toolbar">
+        <h1 class="page-title">字典</h1>
+        <div class="form-inline pull-right">
+            <button class="btn btn-default btn-xs" name="btn_select_box" type="submit"><i class=" fa fa-search fa-lg"></i> 查询 </button>
+            <input id="pid" name="id" hidden>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div style="background-color:white;overflow:scroll;margin-top:25px;height:100vh">
+                <ul id="treeMenu" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div id="ctrltable">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: onClick
+        }
+    };
+    $post("/SysManage/Dictionary/GetDictionaryTree").then(function (data) {
+        var ztree = $.fn.zTree.init($("#treeMenu"), setting, data);
+        ztree.expandAll(true);
+    })
+    function onClick(e, treeId, treeNode) {
+        $("#pid").val(treeNode.id);
+        $grid.registersearchClick();
+    };
+
+    var $grid = $("#ctrltable").ctrlGrid({
+        id: "#ctrltable",
+        url: "/sysManage/dictionary/GetPagingDictionary",
+        columns: [
+            { field: "parentName", title: "上级", width: 100, sort: false, align: "center" },
+            { field: "name", title: "名称", sort: false, align: "center" },
+            { field: "code", title: "编码", width: 100, sort: false, align: "center" },
+            { field: "value", title: "值", width: 100, sort: false, align: "center" },
+            {
+                field: "isFreeze", title: "是否冻结", width: 100, sort: false, align: "center", forrmatter(obj) {
+                    if (!obj.isFreeze) {
+                        return '<p class="bg-primary">未冻结</p>';
+                    }
+                    return '<p>冻结</p>';
+                }
+            },
+            { field: "orderNo", title: "排序码", width: 100, sort: false, align: "center" },
+            { field: "remark", title: "备注", width: 100, sort: false, align: "center" }
+        ],
+        pagination: true,
+        searchnation: true,
+        pagerow: 15,
+        Sidx: "dic.CreateTime",
+        Sord: "desc",
+        Serial: true
+    });
+    $("[name='btn_select_box']").click(function () {
+        $grid.registersearchClick();
+    })
+    function btn_add_box() {
+        $.windowsOpen("/sysManage/dictionary/Edit", "新增字典", '55%', '65%');
+    }
+    function btn_edit_box() {
+        var obj = $grid.gridRowValue();
+        if (obj == null) {
+            $.Alert({ resultSign: 1, message: "请选择一条数据！" });
+            return false;
+        }
+        $.windowsOpen("/sysManage/dictionary/Edit?id=" + obj.dictionaryId, "编辑字典", '55%', '65%');
+    }
+</script>

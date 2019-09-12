@@ -1,0 +1,137 @@
+@{
+    ViewData["Title"] = "系统菜单";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+
+
+<div class="row">
+    <div id="toolbar">
+        <h1 class="page-title">系统菜单</h1>
+        <div class="form-inline pull-right " id="toolbutton">
+            <button class="btn btn-default btn-xs" name="btn_select_box" type="submit"><i class=" fa fa-search fa-lg"></i> 查询 </button>
+            <input id="pid" name="id"  hidden>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"  >
+            <div style="background-color:white;overflow:scroll;margin-top:25px;height:100vh">
+                <ul  id="treeMenu" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div id="ctrltable">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //tree
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: onClick
+        }
+    };
+    $post("/sysManage/Permission/GetPermissionByCheckedPrivilegeMasterValue").then(function (data) {
+            var ztree = $.fn.zTree.init($("#treeMenu"), setting, data);
+            ztree.expandAll(true);
+        })
+    function onClick(e, treeId, treeNode) {
+        $("#pid").val(treeNode.id);
+        $grid.registersearchClick();
+    };
+
+    var $grid = $("#ctrltable").ctrlGrid({
+        id: "#ctrltable",
+        url: "/sysManage/menu/GetMeunuByPId",
+        columns: [
+            { field: "parentName", title: "上级菜单", sort: false, align: "center" },
+            { field: "name", title: "名称", sort: false, align: "center" },
+            { field: "openType", title: "打开类型", width: 100, sort: false, align: "center" },
+            { field: "openUrl", title: "打开地址", sort: false, align: "center" },
+            {
+                field: "icon", title: "图标", sort: false, align: "center", forrmatter(obj) {
+                    return "<i class='"+obj.icon+"'></i>";
+                }
+            },
+            { field: "orderNo", title: "排序", width: 100, sort: false, align: "center"},
+            {
+                field: "canbeDelete", title: "允许删除", width: 100, sort: false, align: "center",
+                forrmatter(obj) {
+                    if (obj.canbeDelete) {
+                        return '<p>可删除</p>';
+                    }
+                    return '<p class="bg-primary">不可删除</p>';
+                }
+            },
+            {
+                field: "isFreeze", title: "冻结", sort: false, align: "center", forrmatter(obj) {
+                    if (!obj.isFreeze) {
+                        return '<p class="bg-primary">未冻结</p>';
+                    }
+                    return '<p>冻结</p>';
+                }
+            },
+            {
+                field: "isShowMenu", title: "是否显示到菜单", width: 100, sort: false, align: "center", forrmatter(obj) {
+                    if (obj.isShowMenu) {
+                        return '<p class="bg-primary">显示</p>';
+                    }
+                    return '<p>不显示</p>';
+                   
+                }
+            },
+            { field: "remark", title: "备注", sort: false, align: "center" }
+        ],
+        pagination: false,
+        searchnation: true,
+        pagerow: 15,
+        Sidx: "createTime",
+        Sord: "desc",
+        Serial: true
+    });
+    $("[name='btn_select_box']").click(function () {
+        $grid.registersearchClick();
+    })
+    function btn_add_box() {
+        $.windowsOpen("/sysManage/Menu/Edit", "新增菜单", '55%', '85%');
+    }
+    function btn_edit_box() {
+        var obj = $grid.gridRowValue();
+            if (obj==null) {
+                $.Alert({ resultSign: 1, message: "请选择一个角色！" });
+                return false;
+            }
+            $.windowsOpen("/sysManage/Menu/Edit?id=" + obj.menuId, "编辑菜单", '55%', '85%');
+    }
+    function btn_delete_box() {
+        var obj = $grid.gridRowValue();
+            if (obj==null) {
+                $.Alert({ resultSign: 1, message: "请选择要删除的项！" });
+                return false;
+            }
+            Swal.fire({
+                title: '是否删除该菜单?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '删除'
+            }).then((result) => {
+                if (result.value) {
+                    $delete("/SysManage/Menu/DeleteMenu", {id:obj.menuId}).then(function (data) {
+                    $.Alert(data, function () {
+                        $grid.registersearchClick();
+                    });
+                })
+                }
+            })
+    }
+
+</script>
+

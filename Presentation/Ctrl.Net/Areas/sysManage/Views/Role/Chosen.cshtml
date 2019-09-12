@@ -1,0 +1,58 @@
+@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+<ul id="treeMenu" class="ztree"></ul>
+
+<input type="submit" value="保 存" id="btnForm" class="btn" style='position: fixed;bottom: 10px;margin-left: 40%;' />
+<script>
+    var checkid = "";
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            selectedMulti: false
+        },
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onCheck: onCheck
+        }
+    };
+    $post("/sysManage/Permission/GetPermissionByCheckedPrivilegeMasterValue",
+        $.param({
+            PrivilegeAccess: 0,
+            PrivilegeMasterValue: $.getQueryString("roleid"),
+            privilegeMaster: 0
+        })).then(function (data) {
+            $.fn.zTree.init($("#treeMenu"), setting, data);
+        })
+    function onCheck(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId),
+            nodes = zTree.getCheckedNodes();
+        checkid = "";
+       // nodes.sort(function compare(a, b) { return a.id - b.id; });
+        for (var i = 0, l = nodes.length; i < l; i++) {
+            checkid += nodes[i].id + ",";
+        }
+        checkid = checkid.substr(0, checkid.length - 1);
+    };
+    $("#btnForm").click(function () {
+        $post("/sysManage/Permission/SavePermission", $.param({
+            PrivilegeAccess: 0
+            , PrivilegeMasterValue: $.getQueryString("roleid"), 'privilegeMaster': 0,
+            MenuPermissions: checkid
+        })).then(function (data) {
+            $.Alert(data, function () {
+                if (data.resultSign == 0) {
+                    parent.window.location.reload();
+                }
+            });
+        })
+    })
+
+</script>
