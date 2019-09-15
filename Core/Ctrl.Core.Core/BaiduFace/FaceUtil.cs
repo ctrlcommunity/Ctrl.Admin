@@ -38,7 +38,7 @@ namespace Ctrl.Core.Core.BaiduFace
                 var result = client.UserAdd(image, imageType, groupId, userId);
                 return result.ToObject<FaceSearchInfo>();
             }
-            catch (Exception)
+            catch
             {
                 throw;
             }
@@ -56,7 +56,7 @@ namespace Ctrl.Core.Core.BaiduFace
                 faceSearchInfo.result.user_id = result["result"]["user_list"].FirstOrDefault().Value<string>("user_id");
                 return faceSearchInfo;
             }
-            catch (Exception ex)
+            catch 
             {
                 return null;
             }

@@ -28,7 +28,7 @@ namespace Ctrl.XUnit {
             // //var db = new Database(connection);
             // var sql = "SELECT * FROM S_Address";
             // var result = db.Query<aaa>(sql).ToList();
-            Assert.Equal(sssd,1);
+           // Assert.Equal(sssd,1);
         }
         public class S_Address {
             public int Id { get; set; }

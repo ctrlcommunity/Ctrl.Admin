@@ -96,7 +96,7 @@ namespace Ctrl.System.Business
                 }
                 return TreeList;
             }
-            catch (Exception ex)
+            catch
             {
 
                 return null;

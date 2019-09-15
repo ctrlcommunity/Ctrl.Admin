@@ -12,12 +12,12 @@ namespace Ctrl.Core.PetaPoco.Core {
     public class PocoData {
         private static Cache<Type, PocoData> _pocoDatas = new Cache<Type, PocoData> ();
         private static List<Func<object, object>> _converters = new List<Func<object, object>> ();
-        private static object _converterLock = new object ();
+        private static readonly object _converterLock = new object ();
         private static MethodInfo fnGetValue = typeof (IDataRecord).GetMethod ("GetValue", new Type[] { typeof (int) });
-        private static MethodInfo fnIsDBNull = typeof (IDataRecord).GetMethod ("IsDBNull");
-        private static FieldInfo fldConverters = typeof (PocoData).GetField ("_converters", BindingFlags.Static | BindingFlags.GetField | BindingFlags.NonPublic);
-        private static MethodInfo fnListGetItem = typeof (List<Func<object, object>>).GetProperty ("Item").GetGetMethod ();
-        private static MethodInfo fnInvoke = typeof (Func<object, object>).GetMethod ("Invoke");
+        private static readonly MethodInfo fnIsDBNull = typeof (IDataRecord).GetMethod ("IsDBNull");
+        private static readonly FieldInfo fldConverters = typeof (PocoData).GetField ("_converters", BindingFlags.Static | BindingFlags.GetField | BindingFlags.NonPublic);
+        private static readonly MethodInfo fnListGetItem = typeof (List<Func<object, object>>).GetProperty ("Item").GetGetMethod ();
+        private static readonly MethodInfo fnInvoke = typeof (Func<object, object>).GetMethod ("Invoke");
         private Cache<Tuple<string, string, int, int>, Delegate> PocoFactories = new Cache<Tuple<string, string, int, int>, Delegate> ();
         public Type Type;
         public string[] QueryColumns { get; private set; }
@@ -344,7 +344,7 @@ namespace Ctrl.Core.PetaPoco.Core {
                 }
                 return null;
             }
-            catch (Exception ex)
+            catch
             {
 
                 throw;

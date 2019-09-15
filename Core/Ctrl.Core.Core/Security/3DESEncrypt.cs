@@ -41,7 +41,7 @@ namespace Ctrl.Core.Core.Security
                 byte[] buffer = Encoding.UTF8.GetBytes(Text);
                 return Convert.ToBase64String(desEncrypt.TransformFinalBlock(buffer,0,buffer.Length));
             }
-            catch(Exception ex)
+            catch
             {
                 return string.Empty;
             }
@@ -80,7 +80,7 @@ namespace Ctrl.Core.Core.Security
                 byte[] buffer = Convert.FromBase64String(Text);
                 return Encoding.UTF8.GetString(desDecrypt.TransformFinalBlock(buffer, 0, buffer.Length));
             }
-            catch(Exception ex)
+            catch
             {
                 return string.Empty;
             }

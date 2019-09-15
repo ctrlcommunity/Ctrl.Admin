@@ -39,9 +39,8 @@ namespace Ctrl.Core.Core.Web
                 }
                 return ip;
             }
-            catch (Exception ex)
+            catch
             {
-                // LogWriter.WriteLog(FolderName.Error, ex.Message);
                 return "";
             }
         }
@@ -58,12 +57,11 @@ namespace Ctrl.Core.Core.Web
             try
             {
                 var address = IPAddress.Parse(GetClientIp());
-                var ipInfor = Dns.GetHostByAddress(address);
+                var ipInfor = Dns.GetHostEntry(address);
                 return ipInfor.HostName;
             }
-            catch (Exception ex)
+            catch
             {
-                //LogWriter.WriteLog(FolderName.Error, ex.Message);
                 return "";
             }
         }
@@ -99,9 +97,8 @@ namespace Ctrl.Core.Core.Web
             {
                 return Dns.GetHostName();
             }
-            catch (Exception ex)
+            catch
             {
-                // LogWriter.WriteLog(FolderName.Error, ex.Message);
                 return "";
             }
         }
@@ -119,9 +116,9 @@ namespace Ctrl.Core.Core.Web
             {
                 return HttpContexts.Current.Request.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString();
             }
-            catch (Exception ex)
+            catch
             {
-                //LogWriter.WriteLog(FolderName.Error, ex.Message);
+   
                 return "";
             }
         }
@@ -431,9 +428,8 @@ namespace Ctrl.Core.Core.Web
                 var ip = String.Format("ip={0}", GetClientIp());
                 return RequestUtil.SendGetRequest(apiUrl, ip).Replace("\n", string.Empty).Replace("\r", string.Empty);
             }
-            catch (Exception ex)
+            catch 
             {
-                //LogWriter.WriteLog(FolderName.Error, ex.Message);
                 return "";
             }
 

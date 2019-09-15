@@ -4,7 +4,7 @@ namespace Ctrl.Core.PetaPoco
 {
     public  class DbBase:IDisposable
     {
-        private readonly string _providerName = "System.Data.SqlClient";
+       // private readonly string _providerName = "System.Data.SqlClient";
         public Database DB { get; set; }
 
 

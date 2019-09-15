@@ -1,1 +1,0 @@
-﻿https://pay.weixin.qq.com/wiki/doc/api/index.html

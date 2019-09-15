@@ -30,7 +30,7 @@ namespace Ctrl.Net
 
     public class Startup
     {
-        public ContainerBuilder builder { get; set; }
+        public ContainerBuilder Builder { get; set; }
         public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
@@ -74,12 +74,12 @@ namespace Ctrl.Net
             //services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ContractResolver = new LowerCasePropertyNamesContractResolver(); });
 
             #region IOC注册区域
-            builder = new ContainerBuilder();//实例化autofac
-            builder.Populate(services);
+            Builder = new ContainerBuilder();//实例化autofac
+            Builder.Populate(services);
             var assemblys = AssemblyHelper.LoadCompileAssemblies();
-            builder.RegisterAssemblyTypes(assemblys.ToArray()).Where(t => t.Name.EndsWith("Logic")).AsImplementedInterfaces().InstancePerLifetimeScope();
-            builder.RegisterAssemblyTypes(assemblys.ToArray()).Where(t => t.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
-            var ApplicationContainer = builder.Build();
+            Builder.RegisterAssemblyTypes(assemblys.ToArray()).Where(t => t.Name.EndsWith("Logic")).AsImplementedInterfaces().InstancePerLifetimeScope();
+            Builder.RegisterAssemblyTypes(assemblys.ToArray()).Where(t => t.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
+            var ApplicationContainer = Builder.Build();
             //services.AddMvc();
             #endregion
 
@@ -91,7 +91,6 @@ namespace Ctrl.Net
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
             }
              app.UseStaticHttpContext();

@@ -68,7 +68,6 @@
         "js/jquery.ztree.excheck.js",
         "css/metroStyle/img/metro.png",
         "css/metroStyle/img/line_conn.png"
-        
       ]
     },
     {
@@ -134,8 +133,8 @@
         "webfonts/fa-regular-400.ttf",
         "webfonts/fa-brands-400.woff2",
         "webfonts/fa-regular-400.woff2"
-      
-        
+
+
       ]
     },
     {
@@ -250,8 +249,8 @@
         "adapters/jquery.js",
         "plugins/templates/dialogs/templates.css",
         "skins/moono-lisa/editor_gecko.css"
-        
-        
+
+
       ]
     },
     {
