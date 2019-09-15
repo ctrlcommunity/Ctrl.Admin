@@ -69,10 +69,8 @@ namespace Ctrl.Net
                 o.LoginPath = new PathString("/sysManage/Account/Login");          
                 o.AccessDeniedPath = new PathString("/sysManage/Home/NotFounds");     
                 o.SlidingExpiration = true;
-               
             });
             //services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ContractResolver = new LowerCasePropertyNamesContractResolver(); });
-
             #region IOC注册区域
             Builder = new ContainerBuilder();//实例化autofac
             Builder.Populate(services);
