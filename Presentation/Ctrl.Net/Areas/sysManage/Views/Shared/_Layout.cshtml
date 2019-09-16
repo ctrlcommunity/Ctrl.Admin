@@ -36,13 +36,13 @@
     @RenderBody()
 </body>
 @RenderSection("script", required: false)
-<script>
-       $(document).ready(function () {
-            setTimeout(function () {
-                $("#pace").attr("rel", "external nofollow");
-                $("#ctrl-loading").css("display", "none");
-            }, 1000);
-        });
-</script>
-</html>
 
+</html>
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#pace").attr("rel", "external nofollow");
+            $("#ctrl-loading").css("display", "none");
+        }, 1000);
+    });
+</script>

@@ -30,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Ctrl.Core.AutoMapper\Ctrl.Core.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Core\Ctrl.Core.Core\Ctrl.Core.Core.csproj" />
+    <ProjectReference Include="..\..\Core\Ctrl.Core.Tag\Ctrl.Core.Tag.csproj" />
     <ProjectReference Include="..\..\Core\Ctrl.Core.Web\Ctrl.Core.Web.csproj" />
     <ProjectReference Include="..\..\Domain\System\Ctrl.Domain.Business\Ctrl.Domain.Business.csproj" />
     <ProjectReference Include="..\..\Domain\System\Ctrl.Domain.Models\Ctrl.Domain.Models.csproj" />
