@@ -4,22 +4,18 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Ctrl.Core.Tag.Controls.Buttons
 {
     [HtmlTargetElement("ctrl-button", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class CtrlButtonTagHelper: CtrlButtonTagHelperServiceBase<CtrlButtonTagHelper>
+    public class CtrlButtonTagHelper: CtrlButtonTagHelperServiceBase<CtrlButtonTagHelper>,IButtonTagHelperBase
     {
-        public CtrlButtonType ButtonType { get; set; }= CtrlButtonType.Default;
+        public CtrlButtonType ButtonType { get; set; }= CtrlButtonType.Primary;
 
-        public string BgColor { get; set; } = "primary";
+        public string Text => throw new System.NotImplementedException();
+
+        public string Icon => throw new System.NotImplementedException();
+
+        public bool? Disabled => throw new System.NotImplementedException();
 
         public CtrlButtonTagHelper():base() {
 
         }
-        //public override void Process(TagHelperContext context, TagHelperOutput output)
-        //{
-        //    output.TagName = "button";
-        //    output.TagMode = TagMode.StartTagAndEndTag;
-        //    output.Attributes.SetAttribute("class", $"btn btn-{BgColor}");
-        //    output.Attributes.SetAttribute("type", ButtonType.ToString());
-        //    output.Content.SetContent(ButtonType.ToString() == "submit" ? "Add" : "Reset");
-        //}
     }
 }
