@@ -1,4 +1,5 @@
-﻿using Ctrl.Core.Tag.Controls.Button;
+﻿using System.Threading.Tasks;
+using Ctrl.Core.Tag.Controls.Button;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Ctrl.Core.Tag.Controls.Buttons
@@ -13,9 +14,9 @@ namespace Ctrl.Core.Tag.Controls.Buttons
         public string Icon => throw new System.NotImplementedException();
 
         public bool? Disabled => throw new System.NotImplementedException();
+    
+      
 
-        public CtrlButtonTagHelper():base() {
 
-        }
     }
 }
