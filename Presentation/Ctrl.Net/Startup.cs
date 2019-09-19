@@ -5,6 +5,8 @@ using Ctrl.Core.Core.Auth;
 using Ctrl.Core.Core.Config;
 using Ctrl.Core.Core.Http;
 using Ctrl.Core.Core.Reflection;
+using Ctrl.Core.Tag.Controls.Button;
+using Ctrl.Core.Tag.Controls.Buttons;
 using Ctrl.Core.Web.Attributes;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +47,7 @@ namespace Ctrl.Net
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessors();
+ 
             //缓存
             services.AddMemoryCache();
             //services.AddMvc();
@@ -81,6 +84,7 @@ namespace Ctrl.Net
             //services.AddMvc();
             #endregion
 
+          //  services.AddScoped<IButtonTagHelperBase, CtrlButtonTagHelper>();
             return new AutofacServiceProvider(ApplicationContainer);//第三方IOC接管 core内置DI容器 
         }
 
