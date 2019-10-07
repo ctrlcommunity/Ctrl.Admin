@@ -5,6 +5,7 @@ using Ctrl.Core.Core.Auth;
 using Ctrl.Core.Core.Config;
 using Ctrl.Core.Core.Http;
 using Ctrl.Core.Core.Reflection;
+using Ctrl.Core.Tag.Controls;
 using Ctrl.Core.Tag.Controls.Button;
 using Ctrl.Core.Tag.Controls.Buttons;
 using Ctrl.Core.Web.Attributes;
@@ -78,6 +79,7 @@ namespace Ctrl.Net
             Builder = new ContainerBuilder();//实例化autofac
             Builder.Populate(services);
             var assemblys = AssemblyHelper.LoadCompileAssemblies();
+          //  Builder.RegisterType<CtrlButtonTagHelper>();
             Builder.RegisterAssemblyTypes(assemblys.ToArray()).Where(t => t.Name.EndsWith("Logic")).AsImplementedInterfaces().InstancePerLifetimeScope();
             Builder.RegisterAssemblyTypes(assemblys.ToArray()).Where(t => t.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
             var ApplicationContainer = Builder.Build();

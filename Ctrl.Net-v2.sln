@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{D1FECCC7-2CBF-4DA1-81EE-BF60DC1D847B}"
 EndProject
@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ctrl.Core.AutoMapper", "Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ctrl.Core.Business", "Core\Ctrl.Core.Business\Ctrl.Core.Business.csproj", "{684C3F0E-6692-43D6-B2C0-AD86C17F76CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ctrl.Core.Tag", "Core\Ctrl.Core.Tag\Ctrl.Core.Tag.csproj", "{8A86BE57-C7B4-4521-B6CA-1073225B469F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ctrl.Core.Tag", "Core\Ctrl.Core.Tag\Ctrl.Core.Tag.csproj", "{8A86BE57-C7B4-4521-B6CA-1073225B469F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

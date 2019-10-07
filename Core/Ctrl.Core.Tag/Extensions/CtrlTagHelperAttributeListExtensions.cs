@@ -21,6 +21,7 @@ namespace Ctrl.Core.Tag.Extensions
             else
             {
                 var existingClasses = classAttribute.Value.ToString().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                existingClasses.Add(className);
                 attributes.SetAttribute("class", string.Join(" ", existingClasses));
             }
         }

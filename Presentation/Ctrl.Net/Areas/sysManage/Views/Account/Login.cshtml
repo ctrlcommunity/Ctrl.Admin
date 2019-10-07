@@ -22,6 +22,7 @@
                 <i class="far fa-edit"></i><span> 欢迎登录</span>
             </div>
             <div class="panel-body form-con">
+                <ctrl-dynamic-form />
                 <form class="form-horizontal" asp-antiforgery="true">
                     <div class="form-group">
                         <div class="input-group">
@@ -36,8 +37,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <ctrl-button button-type="Success" text="测试"/>
-                        <button type="submit"  class="btn btn-primary" id="btnLogin">登  录</button>
+                        <ctrl-button button-type="Primary"  text="登  录" id="btnLogin"/>
                     </div>
                 </form>
                 <p class="ot_login">
@@ -46,7 +46,6 @@
                 </p>
             </div>
         </div>
-
     </div>
     <footer class="navbar-fixed-bottom">© @DateTime.Now.Year Ctrl <a href="https://www.ctrl.cn/" target="_blank">开创云</a></footer>
 </div>
