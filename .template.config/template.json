@@ -1,0 +1,33 @@
+﻿{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "FH",
+  "classifications": [ "Web/ASP.NETCORE" ],
+  "name": "CtrlNet",
+  "identity": "CtrlNet",
+  "shortName": "Ctrl",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Ctrl",
+  "preferNameDirectory": true,
+
+    "sources": [
+    {
+        "modifiers": [
+            {
+              "exclude": [
+                "src/Presentation/Ctrl.Net/Configs/appsettings.Development.json",
+                "src/Presentation/Ctrl.Net/Configs/appsettings.json",
+                ".git/.*",
+                ".vs/.*",
+                ".gitattributes.txt",
+                ".gitignore.txt",
+                "README.md"
+              ]
+            }
+        ]
+    }
+  ] 
+ }
+
