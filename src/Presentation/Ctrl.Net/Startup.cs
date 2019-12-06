@@ -28,7 +28,6 @@ namespace Ctrl.Net
         {
             services.AddHttpContextAccessors();
             services.AddMemoryCache();
-
             //注册Cookie认证服务
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(o =>
@@ -73,7 +72,6 @@ namespace Ctrl.Net
             {
                 ContentTypeProvider = Provider
             });
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

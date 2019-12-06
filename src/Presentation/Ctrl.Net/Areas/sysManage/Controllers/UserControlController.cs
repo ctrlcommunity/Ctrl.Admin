@@ -17,8 +17,8 @@ namespace Ctrl.Net.Areas.sysManage.Controllers
         #region 构造函数
         private readonly ISystemMenuLogic _menuLogic;
         private readonly ISystemRoleLogic _roleLogic;
-        private readonly IHostingEnvironment _environment;
-        public UserControlController(ISystemMenuLogic menuLogic, ISystemRoleLogic roleLogic, IHostingEnvironment environment)
+        private readonly IWebHostEnvironment _environment;
+        public UserControlController(ISystemMenuLogic menuLogic, ISystemRoleLogic roleLogic, IWebHostEnvironment environment)
         {
             this._menuLogic = menuLogic;
             this._roleLogic = roleLogic;
