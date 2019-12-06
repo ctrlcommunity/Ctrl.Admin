@@ -29,8 +29,6 @@ namespace Ctrl.Net.Areas.SysManage.Controllers
         /// <summary>
         ///     首页
         /// </summary>
-        /// <returns></returns>
-        [Authorize]
         [Route(""), Route("/SysManage/Home/Index"), Route("/SysManage")]
         [CreateBy("冯辉")]
         [Description("首页-界面")]

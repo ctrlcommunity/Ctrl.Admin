@@ -6,15 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ctrl.Core.Core.Config;
+using Ctrl.Core.Core.Http;
 using Ctrl.Core.Entities.Paging;
- 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Ctrl.Core.PetaPoco {
     public static class SqlMapperUtil {
-        public static string ProviderName = AppSetting.Load ().ConnectionStrings.FirstOrDefault ().ProviderName;
-        public static string ConnectionString = AppSetting.Load ().ConnectionStrings.FirstOrDefault ().ConnectionString;
-
+        //public static string ProviderName = AppSetting.Load ().ConnectionStrings.FirstOrDefault ().ProviderName;
+        //public static string ConnectionString = AppSetting.Load ().ConnectionStrings.FirstOrDefault ().ConnectionString;
         public static Database CreateDbBase () {
-            var dbBase = new DbBase ().Db (ConnectionString, ProviderName);
+           var dbBase = HttpContexts.Current.RequestServices.GetRequiredService<PetaPocoClient>();
             return dbBase;
         }
         #region 映射

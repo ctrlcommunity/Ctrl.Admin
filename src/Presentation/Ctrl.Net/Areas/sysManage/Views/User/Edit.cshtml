@@ -1,80 +1,82 @@
 ﻿@{
     Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
 }
-<form class="form-horizontal ctrl-form">
-    @Html.AntiForgeryToken()
-    <div class="form-group">
-        <label class="col-sm-2 control-label">角色：</label>
-        <div class="col-sm-10">
-            <input class="form-control input-sm" id="txtRole" type="text" readonly data-parsley-required-message="请选择角色" data-parsley-required="true" />
-            <input class="form-control input-sm" name="RoleId" id="RoleId" type="hidden" readonly hidden />
-            <div id="menuContent" class="menuContent" style="display:none;box-shadow: #464343 0px 0px 18px;background-color: white;">
-                <ul id="treeMenu" class="ztree" style="margin-top:0; width:160px;"></ul>
+    <form class="form-horizontal ctrl-form">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="col-sm-2 control-label">角色：</label>
+            <div class="col-sm-10">
+                <input class="form-control input-sm" id="txtRole" type="text" readonly data-parsley-required-message="请选择角色" data-parsley-required="true" />
+                <input class="form-control input-sm" name="RoleId" id="RoleId" type="hidden" readonly hidden />
+                <div id="menuContent" class="menuContent" style="display:none;box-shadow: #464343 0px 0px 18px;background-color: white;">
+                    <ul id="treeMenu" class="ztree" style="margin-top:0; width:160px;"></ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">登录名：</label>
-        <div class="col-sm-10">
-            <input type="text" name="Code" id="Code" data-parsley-required="登录名" class="form-control input-sm" data-parsley-minlength="4"     data-parsley-trigger="blur"  
-                   data-parsley-minlength-message="用户名位数不可少于4位"
-                   data-parsley-maxlength="12"
-                     data-parsley-remote
-                    data-parsley-remote-message='该用户名称已存在'
-                    data-parsley-remote-validator='CheckUserCode'
-                 >
-        </div>
-    </div>
 
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">真实姓名：</label>
-        <div class="col-sm-10">
-            <input type="text" name="Name" id="Name" data-parsley-required="真实姓名" class="form-control input-sm">
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">登录名：</label>
+            <div class="col-sm-10">
+                <input type="text" name="Code" id="Code" data-parsley-required="登录名" class="form-control input-sm" 
+                       data-parsley-minlength="4" 
+                       data-parsley-trigger="blur"
+                       data-parsley-minlength-message="用户名位数不可少于4位"
+                       data-parsley-maxlength="12"
+                       data-parsley-remote-message='该用户名称已存在'
+                       data-parsley-remote-validator='CheckUserCode'
+                       >
+            </div>
         </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">电话：</label>
-        <div class="col-sm-10">
-            <input type="text" name="Mobile" id="Mobile" data-parsley-required="电话" class="form-control input-sm">
-        </div>
-    </div>
 
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">邮箱：</label>
-        <div class="col-sm-10">
-            <input type="email" name="Email" data-parsley-trigger="change" id="Email" data-parsley-required="邮箱" class="form-control input-sm">
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">真实姓名：</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" id="Name" data-parsley-required="真实姓名" class="form-control input-sm">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">是否冻结：</label>
-        <div class="col-sm-10">
-            <label class="radio-inline">
-                <input type="radio" name="IsFreeze" id="IsFreeze" value="1"> 是
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="IsFreeze" id="IsFreeze" value="0"> 否
-            </label>
+          <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">电话：</label>
+            <div class="col-sm-10">
+                <input type="text" name="Mobile" id="Mobile" data-parsley-required="电话" class="form-control input-sm">
+            </div>
+        </div>
 
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">邮箱：</label>
+            <div class="col-sm-10">
+                <input type="email" name="Email" data-parsley-trigger="change" id="Email" data-parsley-required="邮箱" class="form-control input-sm">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">备注：</label>
-        <div class="col-sm-10">
-            <textarea class="form-control" rows="3"></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <input type="submit" value="保 存" id="btnForm" class="btn btn-primary" />
-            <input id="rst" class="btn" type="button" value="返 回" name="rst" />&nbsp;
-        </div>
-    </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">是否冻结：</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" name="IsFreeze" id="IsFreeze" value="1"> 是
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="IsFreeze" id="IsFreeze" value="0"> 否
+                </label>
 
-</form>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">备注：</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="保 存" id="btnForm" class="btn btn-primary" />
+                <input id="rst" class="btn" type="button" value="返 回" name="rst" />&nbsp;
+            </div>
+        </div>
+
+    </form>
 
 
 <script>

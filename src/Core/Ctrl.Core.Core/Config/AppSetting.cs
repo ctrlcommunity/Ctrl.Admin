@@ -13,15 +13,14 @@ namespace Ctrl.Core.Core.Config
         public List<BaiDuStringSetting> BaiDuStrings { get; set; } = new List<BaiDuStringSetting>();
         public static AppSetting Load()
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(Path.Combine("Configs","appsettings.json"))
-                ;
-
+            var builder = new ConfigurationBuilder();
+                //.SetBasePath(Directory.GetCurrentDirectory())
+                //.AddJsonFile(Path.Combine("Configs", "appsettings.json"))
+                //;
             var config = builder.Build();
 
             var app = new AppSetting();
-            config.GetSection("App").Bind(app);
+          //  config.GetSection("App").Bind(app);
             return app;
         }
 

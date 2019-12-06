@@ -14,24 +14,29 @@ namespace Ctrl.Core.AutoMapper
     {
         public static object Map(object source, object destination, Type sourceType, Type destinationType)
         {
-            return Mapper.Map(source, destination, sourceType, destinationType);
+            throw new Exception("No implementation stack");
+           // return Mapper.Map(source, destination, sourceType, destinationType);
         }
         public static TDestination Map<TSource, TDestination>(TSource source)
         {
-            return Mapper.Map<TSource, TDestination>(source);
+            throw new Exception("No implementation stack");
+            //return Mapper.Map<TSource, TDestination>(source);
         }
         public static TDestination Map<TDestination>(object source)
         {
-            return Mapper.Map<TDestination>(source);
+            throw new Exception("No implementation stack");
+           // return Mapper.Map<TDestination>(source);
         }
 
         public static TDestination Map<TSource, TDestination>(TSource source, TDestination destination)
         {
-            return Mapper.Map(source, destination);
+            throw new Exception("No implementation stack");
+          //  return Mapper.Map(source, destination);
         }
         public static object Map(object source, Type sourceType, Type destinationType)
         {
-            return Mapper.Map(source, sourceType, destinationType);
+            throw new Exception("No implementation stack");
+           // return Mapper.Map(source, sourceType, destinationType);
         }
 
         public static void InitializeMap()
@@ -49,29 +54,30 @@ namespace Ctrl.Core.AutoMapper
 
         static void CreateMap(List<MapperDescritor> mapperDescritors)
         {
-            Mapper.Initialize(cfg =>
-            {
-                foreach (MapperDescritor mapperDescritor in mapperDescritors)
-                {
-                    IMappingExpression exp = cfg.CreateMap(mapperDescritor.SourceType, mapperDescritor.TargetType);
-                    IMappingExpression reversedMapExp = null;
-                    if (mapperDescritor.ReverseMap)
-                    {
-                        reversedMapExp = exp.ReverseMap();
-                    }
+            throw new Exception("No implementation stack");
+            //Mapper.Initialize(cfg =>
+            //{
+            //    foreach (MapperDescritor mapperDescritor in mapperDescritors)
+            //    {
+            //        IMappingExpression exp = cfg.CreateMap(mapperDescritor.SourceType, mapperDescritor.TargetType);
+            //        IMappingExpression reversedMapExp = null;
+            //        if (mapperDescritor.ReverseMap)
+            //        {
+            //            reversedMapExp = exp.ReverseMap();
+            //        }
 
-                    foreach (MapperMemberRelationship memberRelationship in mapperDescritor.MemberRelationships)
-                    {
-                        exp.ForMember(memberRelationship.TargetMember.Name, mce => mce.MapFrom(memberRelationship.SourceMember.Name));
+            //        foreach (MapperMemberRelationship memberRelationship in mapperDescritor.MemberRelationships)
+            //        {
+            //            exp.ForMember(memberRelationship.TargetMember.Name, mce => mce.MapFrom(memberRelationship.SourceMember.Name));
 
-                        if (reversedMapExp != null)
-                        {
-                            reversedMapExp.ForMember(memberRelationship.SourceMember.Name, mce => mce.MapFrom(memberRelationship.TargetMember.Name));
-                        }
-                    }
-                }
+            //            if (reversedMapExp != null)
+            //            {
+            //                reversedMapExp.ForMember(memberRelationship.SourceMember.Name, mce => mce.MapFrom(memberRelationship.TargetMember.Name));
+            //            }
+            //        }
+            //    }
 
-            });
+            //});
         }
 
         static List<MapperDescritor> FindMapperDescritors(List<Assembly> assemblies)

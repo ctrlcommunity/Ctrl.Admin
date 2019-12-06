@@ -1,4 +1,3 @@
-using Ctrl.Core.AutoMapper;
 using Ctrl.Domain.Models.Entities;
 
 namespace Ctrl.Domain.Models.Dtos.Identity
@@ -6,7 +5,6 @@ namespace Ctrl.Domain.Models.Dtos.Identity
     /// <summary>
     ///     用户信息输入类
     /// </summary>
-    [MapToType(typeof(SystemUser))]
     public class SystemUserSaveInput:SystemUser
     {
         /// <summary>

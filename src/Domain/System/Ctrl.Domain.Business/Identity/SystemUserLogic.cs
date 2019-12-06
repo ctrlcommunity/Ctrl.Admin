@@ -1,5 +1,4 @@
-﻿using Ctrl.Core.AutoMapper;
-using Ctrl.Core.Business;
+﻿using Ctrl.Core.Business;
 using Ctrl.Core.Core.Resource;
 using Ctrl.Core.Core.Security;
 using Ctrl.Core.Core.Utils;
@@ -12,7 +11,6 @@ using Ctrl.Domain.Models.Dtos;
 using Ctrl.Domain.Models.Dtos.Identity;
 using Ctrl.Domain.Models.Entities;
 using Ctrl.Domain.Models.Enums;
-using Ctrl.System.Business;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -108,7 +106,7 @@ namespace Ctrl.Domain.Business.Identity
                 user.CreateTime = DateTime.Now;
                 user.UserId = CombUtil.NewComb().ToString();
                 user.Password = _3DESEncrypt.Encrypt("123456"); ;
-                operateStatus = await InsertAsync(AutoMapperUtil.Map<SystemUser>(user));
+                operateStatus = await InsertAsync(user as SystemUser);
                 if (operateStatus.ResultSign == ResultSign.Successful)
                 {
                     //添加用户到组织机构

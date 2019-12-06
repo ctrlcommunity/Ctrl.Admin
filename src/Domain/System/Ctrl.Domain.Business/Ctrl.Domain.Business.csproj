@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\Ctrl.Core.AutoMapper\Ctrl.Core.AutoMapper.csproj" />
     <ProjectReference Include="..\..\..\Core\Ctrl.Core.Business\Ctrl.Core.Business.csproj" />
     <ProjectReference Include="..\..\..\Core\Ctrl.Core.Entities\Ctrl.Core.Entities.csproj" />
     <ProjectReference Include="..\Ctrl.Domain.DataAccess\Ctrl.Domain.DataAccess.csproj" />

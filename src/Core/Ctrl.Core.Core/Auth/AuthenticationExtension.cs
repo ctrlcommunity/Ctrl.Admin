@@ -1,7 +1,6 @@
 ﻿using Ctrl.Core.Core.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using System;
@@ -42,6 +41,7 @@ namespace Ctrl.Core.Core.Auth
                 ClaimsPrincipal user = new ClaimsPrincipal(claimsIdentity);
                 Task.Run(async () =>
                 {
+            
                     //可以使用HttpContext.SignInAsync方法的重载来定义持久化cookie存储用户认证信息，例如下面的代码就定义了用户登录后60分钟内cookie都会保留在客户端计算机硬盘上，
                     //即便用户关闭了浏览器，60分钟内再次访问站点仍然是处于登录状态，除非调用Logout方法注销登录。
                     //注意其中的AllowRefresh属性，如果AllowRefresh为true，表示如果用户登录后在超过50%的ExpiresUtc时间间隔内又访问了站点，就延长用户的登录时间（其实就是延长cookie在客户端计算机硬盘上的保留时间），
@@ -50,7 +50,7 @@ namespace Ctrl.Core.Core.Auth
                     //如果AllowRefresh为false，表示用户登录后60分钟内不管有没有访问站点，只要60分钟到了，立马就处于非登录状态（不延长cookie在客户端计算机硬盘上的保留时间，60分钟到了客户端计算机就自动删除cookie）
                     await HttpContexts.Current.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
-                    user, new AuthenticationProperties()
+                    user, new AuthenticationProperties
                     {
                         IsPersistent = true,
                         ExpiresUtc = DateTimeOffset.UtcNow.AddDays(_cookieSaveDays),
@@ -71,24 +71,6 @@ namespace Ctrl.Core.Core.Auth
         /// <returns></returns>
         public static PrincipalUser Current()
         {
-
-            #region 开发环境解开
-            //if (environment.EnvironmentName== EnvironmentName.Development)
-            //{
-            //    var prin = new PrincipalUser()
-            //    {
-            //        ContactNumber = "13256706052",
-            //        UserId = Guid.Parse("08eea1b5-869b-481c-8135-fe21b673056f"),
-            //        Code = "admin",
-            //        Name = "开发用户",
-            //        IsAdmin = true,
-            //        RoleName = "超级管理员"
-            //    };
-            //    return prin;
-            //}
-            
-            #endregion
-
             try
             {
                 // 如果HttpContext.User.Identity.IsAuthenticated为true，

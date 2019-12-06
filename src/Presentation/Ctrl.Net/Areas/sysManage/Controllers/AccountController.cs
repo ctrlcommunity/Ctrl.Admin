@@ -11,9 +11,12 @@ using Ctrl.Domain.Models.Dtos;
 using Ctrl.Domain.Models.Dtos.Identity;
 using Ctrl.Domain.Models.Entities;
 using Ctrl.Domain.Models.Enums;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ctrl.Net.Areas.SysManage.Controllers
@@ -26,12 +29,11 @@ namespace Ctrl.Net.Areas.SysManage.Controllers
     {
         #region  构造函数
         private readonly ISystemUserLogic _systemUserLogic;
-        private readonly IHostingEnvironment _environment;
 
-        public AccountController(ISystemUserLogic systemUserLogic, IHostingEnvironment environment)
+
+        public AccountController(ISystemUserLogic systemUserLogic)
         {
             _systemUserLogic = systemUserLogic;
-            this._environment = environment;
         }
         #endregion
 
@@ -105,6 +107,7 @@ namespace Ctrl.Net.Areas.SysManage.Controllers
                 }
                 //写入Cookie信息
                 AuthenticationExtension.SetAuthCookie(prin);
+
                 //写入日志
                 var logHandler = new LoginLogHandler(info.Data.UserId, info.Data.Code, info.Data.Name, (int)EnumLoginType.账号密码登录);
                 logHandler.WriteLog();
