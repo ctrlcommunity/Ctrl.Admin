@@ -28,12 +28,7 @@ namespace Ctrl.Net
         {
             services.AddHttpContextAccessors();
             services.AddMemoryCache();
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(OperationLogAttribute));
-                options.Filters.Add(typeof(ExceptionFilterAttribute));
-                options.Filters.Add(typeof(WebPermissionFilter));
-            });
+
             //注册Cookie认证服务
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(o =>
@@ -50,9 +45,14 @@ namespace Ctrl.Net
                 o.ConnectionString = "Data Source=.;Initial Catalog=Ctrl.Net;User ID=sa;Password=sa;MultipleActiveResultSets=true;";
                 o.Name = "mssql";
             });
-
-            services.AddRazorPages();
-            services.AddControllers();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(typeof(OperationLogAttribute));
+                options.Filters.Add(typeof(ExceptionFilterAttribute));
+                options.Filters.Add(typeof(WebPermissionFilter));
+            }).AddNewtonsoftJson(options=> {
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            });
 
         }
 
@@ -82,7 +82,6 @@ namespace Ctrl.Net
                 endpoints.MapAreaControllerRoute(
                     name: "sysManage", "sysManage",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
             });
         }
     }
