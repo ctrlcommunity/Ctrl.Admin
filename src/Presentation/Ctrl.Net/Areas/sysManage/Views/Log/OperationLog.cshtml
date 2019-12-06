@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "操作日志";
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+
+    <div class="row">
+        <div id="toolbar">
+            <h1 class="page-title">操作日志</h1>
+            <div class="form-inline pull-right" id="toolbutton">
+                <div class="input-group input-group-sm">
+                    <input type="text" name="date2" id="date2" class="form-control input-sm">
+                    <span class="input-group-addon"><i class="fas fa-calendar-alt fa-lg"></i></span>
+                </div>
+                <div class="form-group">
+                    <label>用户名：</label>
+                    <input type="text" class="form-control input-sm" name="CreateUserName" placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>登录代码：</label>
+                    <input type="text" class="form-control input-sm" name="CreateUserCode" placeholder="请输入登录代码">
+                </div>
+                <button class="btn btn-default btn-xs" name="btn_select_box" type="submit"><i class=" fa fa-search fa-lg"></i> 查询 </button>
+            </div>
+        </div>
+        <div id="ctrltable">
+
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        var $grid = $("#ctrltable").ctrlGrid({
+            id: "#ctrltable",
+            url: "/SysManage/Log/GetPagingOperationLog",
+            columns: [
+                //{ field: 'ck', checkbox: true },
+                { field: 'createTime', title: '操作时间', width: 200, align: 'left', sort: true },
+                { field: 'describe', title: '描述', width: 100, align: 'left' },
+                { field: 'createUserCode', title: '登录名', width: 100, align: 'left' },
+                { field: 'createUserName', title: '真实姓名', width: 100, align: 'left' },
+                { field: 'url', title: '当前请求Url信息', width: 150, align: 'left' },
+                { field: 'urlReferrer', title: '上次请求Url信息', width: 150, align: 'left' },
+                { field: 'controllerName', title: '控制器', width: 100, align: 'left' },
+                { field: 'actionName', title: '方法名称', width: 150, align: 'left' },
+                { field: 'requestData', title: '请求数据', width: 150, align: 'left' },
+                { field: 'responseStatus', title: '响应状态', width: 150, align: 'left' },
+                { field: 'resultExecutionTime', title: '页面展示(秒)', width: 150, align: 'left', sort: true },
+                { field: 'actionExecutionTime', title: '方法执行(秒)', width: 150, align: 'left', sort: true },
+                { field: 'userAgent', title: '浏览器', width: 100, align: 'left' },
+                { field: 'clientHost', title: '客户端IP', width: 150, align: 'left' },
+                { field: 'serverHost', title: '服务端IP', width: 150, align: 'left' },
+                {
+                    title: '操作', align: 'center', forrmatter: function (data) {
+                        return '<button type="button" class="btn btn-primary btn-xs" onclick="details(this)" data-id=' + data.operateLogId + '><i class="fas fa-search-plus"></i>查看详情</button>';
+                    }
+                }
+            ],
+            pagination: true,
+            searchnation: true,
+            pagerow: 40,
+            Sidx: "createTime",
+            Sord: "desc",
+            Serial: true
+        });
+        $("input[name='date2']").ctrldaterangepicker();
+        $("[name='btn_select_box']").click(function () {
+            $grid.registersearchClick();
+        })
+        function details(obj) {
+            var id = $(obj).data("id");
+            if (!$.IsEmptyGuid(id)) {
+                $.windowsOpen("/sysManage/Log/OperationDetails?id=" + id, "日志详情", '65%', '65%');
+            }
+        }
+    </script>
