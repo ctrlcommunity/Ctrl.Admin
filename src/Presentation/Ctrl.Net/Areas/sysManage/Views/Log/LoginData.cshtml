@@ -1,0 +1,260 @@
+﻿@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseForm.cshtml";
+}
+@section style
+    {
+    <script src="~/lib/echarts/echarts.min.js" asp-append-version="true"></script>
+    <script src="~/js/Plugins/echarts/map/china.js" asp-append-version="true"></script>
+}
+<style>
+    body {
+        background: #fafafa;
+    }
+
+    .box {
+        position: relative;
+        width: 800px;
+        margin: 0 auto;
+        padding-top: 60px;
+    }
+
+    #china-map {
+        width: 760px;
+        height: 660px;
+        margin: auto;
+    }
+
+    #back {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        cursor: pointer;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+
+<div id="china-map"></div>
+
+
+<script>
+    $post("/SysManage/Log/GetLoginCountData", null).then(function (data) {
+        var myChart = echarts.init(document.getElementById('china-map'));
+        // 全国省份数据
+        var toolTipData = [];
+
+        toolTipData = data;
+
+        var seriesData = [];
+        for (var i = 0; i < toolTipData.length; i++) {
+            seriesData[i] = {};
+            seriesData[i].name = toolTipData[i].provinceName;
+            seriesData[i].value = toolTipData[i].loginCount;
+        }
+
+
+        var max = Math.max.apply(Math, seriesData.map(function (o) {
+            return o.value
+        })),
+            min = 0; // 侧边最大值最小值
+        var maxSize4Pin = 40,
+            minSize4Pin = 30;
+
+
+        var mapName = '';
+
+        function getGeoCoordMap(name) {
+            name = name ? name : 'china';
+            /*获取地图数据*/
+            var geoCoordMap = {};
+            myChart.showLoading(); // loading start
+            var mapFeatures = echarts.getMap(name).geoJson.features;
+            myChart.hideLoading(); // loading end
+            mapFeatures.forEach(function (v) {
+                var name = v.properties.name; // 地区名称
+                geoCoordMap[name] = v.properties.cp; // 地区经纬度
+            });
+            return geoCoordMap;
+        }
+
+        function convertData(data) { // 转换数据
+            var geoCoordMap = getGeoCoordMap(mapName);
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var geoCoord = geoCoordMap[data[i].name]; // 数据的名字对应的经纬度
+                if (geoCoord) { // 如果数据data对应上，
+                    res.push({
+                        name: data[i].name,
+                        value: geoCoord.concat(data[i].value),
+                    });
+                }
+            }
+            return res;
+        };
+        // 初始化echarts-map
+        initEcharts("china", "用户登录次数地区分布");
+        function initEcharts(pName, Chinese_) {
+            var tmpSeriesData = seriesData;
+            var tmp = toolTipData;
+            var option = {
+                title: {
+                    text: Chinese_ || pName,
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) { // 鼠标滑过显示的数据
+                        if (pName === "china") {
+                            var toolTiphtml = ''
+                            for (var i = 0; i < tmp.length; i++) {
+                                if (params.name == tmp[i].provinceName) {
+                                    toolTiphtml += tmp[i].provinceName + '<br>登录次数：' + tmp[i].loginCount;
+                                }
+                            }
+                            return toolTiphtml;
+                        }
+                    }
+                },
+                visualMap: { //视觉映射组件
+                    show: true,
+                    min: min,
+                    max: max, // 侧边滑动的最大值，从数据中获取
+                    left: '5%',
+                    top: '96%',
+                    inverse: true, //是否反转 visualMap 组件
+                    // itemHeight:200,  //图形的高度，即长条的高度
+                    text: ['高', '低'], // 文本，默认为数值文本
+                    calculable: false, //是否显示拖拽用的手柄（手柄能拖拽调整选中范围）
+                    seriesIndex: 1, //指定取哪个系列的数据，即哪个系列的 series.data,默认取所有系列
+                    orient: "horizontal",
+                    inRange: {
+                        color: ['#dbfefe', '#1066d5'] // 蓝绿
+                    }
+                },
+                geo: {
+                    show: true,
+                    map: pName,
+                    roam: false,
+                    label: {
+                        normal: {
+                            show: false
+                        },
+                        emphasis: {
+                            show: false,
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#3c8dbc', // 没有值得时候颜色
+                            borderColor: '#097bba',
+                        },
+                        emphasis: {
+                            areaColor: '#fbd456', // 鼠标滑过选中的颜色
+                        }
+                    }
+                },
+                series: [{
+                    name: '散点',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    data: tmpSeriesData,
+                    symbolSize: '1',
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: '{b}',
+                            position: 'right'
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#895139' // 字体颜色
+                        }
+                    }
+                },
+                {
+                    name: Chinese_ || pName,
+                    type: 'map',
+                    mapType: pName,
+                    roam: false, //是否开启鼠标缩放和平移漫游
+                    data: tmpSeriesData,
+                    // top: "3%",//组件距离容器的距离
+                    // geoIndex: 0,
+                    // aspectScale: 0.75,       //长宽比
+                    // showLegendSymbol: false, // 存在legend时显示
+                    selectedMode: 'single',
+                    label: {
+                        normal: {
+                            show: true, //显示省份标签
+                            textStyle: {
+                                color: "#895139"
+                            } //省份标签字体颜色
+                        },
+                        emphasis: { //对应的鼠标悬浮效果
+                            show: true,
+                            textStyle: {
+                                color: "#323232"
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderWidth: .5, //区域边框宽度
+                            borderColor: '#0550c3', //区域边框颜色
+                            areaColor: "#0b7e9e", //区域颜色
+                        },
+                        emphasis: {
+                            borderWidth: .5,
+                            borderColor: '#4b0082',
+                            areaColor: "#ece39e",
+                        }
+                    }
+                },
+                {
+                    name: '点',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    symbol: 'pin', //气泡
+                    symbolSize: function (val) {
+                        var a = (maxSize4Pin - minSize4Pin) / (max - min);
+                        var b = minSize4Pin - a * min;
+                        b = maxSize4Pin - a * max;
+                        return a * val[2] + b;
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: function (params) {
+                                return params.data.value[2];
+                            },
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 9
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: 'red' //标志颜色'#F62157'
+                        }
+                    },
+                    zlevel: 6,
+                    data: convertData(tmpSeriesData),
+                },
+                ]
+            };
+
+            myChart.setOption(option);
+            /* 响应式 */
+            $(window).resize(function () {
+                myChart.resize();
+            });
+
+        }
+    })
+</script>

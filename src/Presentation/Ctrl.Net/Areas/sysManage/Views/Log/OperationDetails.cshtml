@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "~/Areas/SysManage/Views/Shared/_LayoutPageBaseList.cshtml";
+}
+@model SystemOperateLog
+<div class="row">
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th style="width:20%">操作时间：</th>
+                <td>@Model.CreateTime</td>
+            </tr>
+            <tr>
+                <th>登录名：</th>
+                <td>@Model.CreateUserCode</td>
+            </tr>
+            <tr>
+                <th>名称：</th>
+                <td>@Model.CreateUserName</td>
+            </tr>
+            <tr>
+                <th>控制器：</th>
+                <td>@Model.ControllerName</td>
+            </tr>
+            <tr>
+                <th>方法：</th>
+                <td>@Model.ActionName</td>
+            </tr>
+            <tr>
+                <th>描述：</th>
+                <td>@Model.Describe</td>
+            </tr>
+            <tr>
+                <th>地址：</th>
+                <td>@Model.Url</td>
+            </tr>
+            <tr>
+                <th>响应状态：</th>
+                <td>@Model.ResponseStatus</td>
+            </tr>
+            <tr>
+                <th>方法时间(秒)：</th>
+                <td>@Model.ActionExecutionTime</td>
+            </tr>
+            <tr>
+                <th>请求类型：</th>
+                <td>@Model.RequestType</td>
+            </tr>
+            <tr>
+                <th>请求数据：</th>
+                <td>@Model.RequestData</td>
+            </tr>
+            <tr>
+                <th>请求IP：</th>
+                <td>@Model.ClientHost</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
