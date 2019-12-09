@@ -1,4 +1,4 @@
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 50000;
 axios.defaults.baseURL = '';
 //http request 拦截器
 axios.interceptors.request.use(

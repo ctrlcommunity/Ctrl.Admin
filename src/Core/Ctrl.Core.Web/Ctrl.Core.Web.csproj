@@ -3,6 +3,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Domain\System\Ctrl.Domain.DataAccess\Ctrl.Domain.DataAccess.csproj" />
     <ProjectReference Include="..\Ctrl.Core.Core\Ctrl.Core.Core.csproj" />
     <ProjectReference Include="..\Ctrl.Core.Entities\Ctrl.Core.Entities.csproj" />

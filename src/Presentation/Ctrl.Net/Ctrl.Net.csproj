@@ -2,17 +2,9 @@
 
   <PropertyGroup>
     <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
-    <Win32Resource />
-    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove=".template.config\**" />
-    <Content Remove=".template.config\**" />
-    <EmbeddedResource Remove=".template.config\**" />
-    <None Remove=".template.config\**" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Baidu.AI" Version="3.6.14" />
@@ -52,7 +44,10 @@
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties Configs_4appsettings_1json__JSONSchema="http://json.schemastore.org/appveyor" libman_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Configs_4appsettings_1json__JSONSchema="http://json.schemastore.org/appveyor" libman_1json__JSONSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
-
 

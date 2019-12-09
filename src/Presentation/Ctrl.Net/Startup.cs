@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
+using System.IO;
 using System.Reflection;
 
 namespace Ctrl.Net
@@ -19,9 +20,15 @@ namespace Ctrl.Net
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()              
+                         .SetBasePath(env.ContentRootPath)
+                         .AddJsonFile(Path.Combine("Configs", "appsettings.json"), optional: true,
+                                      reloadOnChange: true) //Settings for the application	
+                         .AddJsonFile(Path.Combine("Configs", $"appsettings.{env.EnvironmentName}.json"),
+                                      optional: true, reloadOnChange: true);
+            Configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -42,8 +49,8 @@ namespace Ctrl.Net
             services.BatchRegisterService(Assembly.Load("Ctrl.Core.Business"), "Logic", ServiceLifetime.Scoped);
 
             services.AddPetaPoco(o=> {
-                o.ConnectionString = "Data Source=.;Initial Catalog=Ctrl.Net;User ID=sa;Password=sa;MultipleActiveResultSets=true;";
-                o.Name = "mssql";
+                o.ConnectionString =Configuration["App:ConnectionStrings:0:ConnectionString"];
+                o.Name = Configuration["App:ConnectionStrings:0:Name"];
             });
             services.AddControllersWithViews(options =>
             {
@@ -53,6 +60,7 @@ namespace Ctrl.Net
             }).AddNewtonsoftJson(options=> {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
+
 
         }
 
@@ -64,7 +72,7 @@ namespace Ctrl.Net
             }
             app.UseStaticHttpContext();
             #region Nlog
-            LogManager.Configuration.Variables["connectionString"] = "Data Source=.;Initial Catalog=Ctrl.Net;User ID=sa;Password=sa;MultipleActiveResultSets=true;";
+            LogManager.Configuration.Variables["connectionString"] = Configuration["App:ConnectionStrings:0:ConnectionString"];
             #endregion
             app.UseCookiePolicy();
             var Provider = new FileExtensionContentTypeProvider();
@@ -73,7 +81,6 @@ namespace Ctrl.Net
             {
                 ContentTypeProvider = Provider
             });
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

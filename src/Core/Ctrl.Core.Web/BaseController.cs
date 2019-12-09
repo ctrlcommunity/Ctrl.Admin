@@ -1,9 +1,6 @@
 ﻿using Ctrl.Core.Core.Auth;
-using Ctrl.Core.Core.Converts;
 using Ctrl.Core.Entities.Paging;
-using Ctrl.Core.Web.Attributes;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ctrl.Core.Web
 {
@@ -11,8 +8,6 @@ namespace Ctrl.Core.Web
     [Area(areaName: "sysManage")]
     public class BaseController: Controller
     {
-       
-
         #region Json
         /// <summary>
         ///     返回分页后信息
