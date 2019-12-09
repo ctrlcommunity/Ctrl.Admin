@@ -1,14 +1,8 @@
-﻿## CtrlNet基础版本优化
+﻿## ASP.NET-Core-BaseDesign
 
+ASP.NET Core3.1基础开发框架
 
+# 代码贡献
 
-
-
-TODO
-- 增加Bootstrap Tag Helper
-- 优化js增加可读性
-- 权限控制需要再次加大力度优化
-- 代码生成器功能需增强
-- 数据库连接池需优化,数据访问方法需多扩展一些
-- Ioc框架更改为Castle 
+如果您有想法可以加入我们，或者发现本项目中需要改进的代码，欢迎 Fork 并提交 PR！
 
