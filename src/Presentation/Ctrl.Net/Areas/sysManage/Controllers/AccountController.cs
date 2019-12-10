@@ -1,22 +1,15 @@
 ﻿using Ctrl.Core.Core.Attributes;
 using Ctrl.Core.Core.Auth;
-using Ctrl.Core.Core.BaiduFace;
 using Ctrl.Core.Core.Log;
 using Ctrl.Core.Core.Security;
-using Ctrl.Core.Entities;
 using Ctrl.Core.Web;
 using Ctrl.Core.Web.Attributes;
 using Ctrl.Domain.Business.Identity;
 using Ctrl.Domain.Models.Dtos;
-using Ctrl.Domain.Models.Dtos.Identity;
 using Ctrl.Domain.Models.Entities;
 using Ctrl.Domain.Models.Enums;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ctrl.Net.Areas.SysManage.Controllers
@@ -40,11 +33,6 @@ namespace Ctrl.Net.Areas.SysManage.Controllers
         #region 视图
         [SkipPermission]
         public  ActionResult Login()
-        {
-            return View();
-        }
-        [SkipPermission]
-        public ActionResult FaceLogin()
         {
             return View();
         }
@@ -115,63 +103,6 @@ namespace Ctrl.Net.Areas.SysManage.Controllers
             return Json(info);
         }
 
-
-        /// <summary>
-        ///  人脸识别登录
-        /// </summary>
-        /// <returns></returns>
-        public async Task<JsonResult> LoginFaceSubmit(string facebase)
-        {
-            OperateStatus<UserLoginOutput> operateStatus = new OperateStatus<UserLoginOutput>();
-            var results = new FaceUtil().SearchFace(facebase);
-    
-            if (results.error_msg == "SUCCESS")
-            {
-                var infobase = await _systemUserLogic.GetById(results.result.user_id.Replace('M', '-'));
-                var info = await _systemUserLogic.CheckUserByCodeAndPwdAsync(new UserLoginInput { Code = infobase.Code, Password = infobase.Password });
-                if (info != null)
-                {
-                    var prin = new PrincipalUser()
-                    {
-                        UserId = Guid.Parse(info.Data.UserId),
-                        Code = info.Data.Code,
-                        Name = info.Data.Name,
-                        IsAdmin = info.Data.IsAdmin,
-                        RoleName = info.Data.RoleName,
-                        ImgUrl = info.Data.ImgUrl
-                    };
-                    //写入Cookie信息
-                    AuthenticationExtension.SetAuthCookie(prin);
-                    //写入日志
-                    var logHandler = new LoginLogHandler(info.Data.UserId, info.Data.Code, info.Data.Name, (int)EnumLoginType.账号密码登录);
-                    logHandler.WriteLog();
-                }
-            }
-            else
-            {
-                operateStatus.ResultSign = Core.Entities.ResultSign.Error;
-                operateStatus.Message = "识别失败!";
-                goto End;
-            }
-            End:
-            return Json(operateStatus);
-
-
-        }
-        /// <summary>
-        ///     绑定人脸
-        /// </summary>
-        /// <param name="facebase"></param>
-        /// <returns></returns>
-        public JsonResult BindFaceSave(string facebase)
-        {
-            var results = new FaceUtil().UserFaceSave(facebase, CurrentUser.UserId.ToString());
-            if (results.error_msg == "SUCCESS")
-            {
-                return Json(new { status = true });
-            }
-            return Json(new { status = false });
-        }
         #endregion
     }
 
