@@ -1,19 +1,14 @@
 ﻿#if NETCOREAPP
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ctrl.Core.Core.Config;
 using Ctrl.Core.Core.Http;
 using Ctrl.Core.Entities.Paging;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Ctrl.Core.PetaPoco {
+namespace Ctrl.Core.PetaPoco
+{
     public static class SqlMapperUtil {
-        //public static string ProviderName = AppSetting.Load ().ConnectionStrings.FirstOrDefault ().ProviderName;
-        //public static string ConnectionString = AppSetting.Load ().ConnectionStrings.FirstOrDefault ().ConnectionString;
         public static Database CreateDbBase () {
            var dbBase = HttpContexts.Current.RequestServices.GetRequiredService<PetaPocoClient>();
             return dbBase;
