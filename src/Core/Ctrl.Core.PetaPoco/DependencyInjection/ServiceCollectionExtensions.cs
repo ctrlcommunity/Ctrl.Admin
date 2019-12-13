@@ -8,7 +8,7 @@ namespace Ctrl.Core.PetaPoco.DependencyInjection
         public static IServiceCollection AddPetaPoco(this IServiceCollection services,Action<DbOptions> action) {
             DbOptions dbOptions = new DbOptions();
             action.Invoke(dbOptions);
-            services.AddScoped(s => new PetaPocoClient(dbOptions));
+            services.AddTransient(s => new PetaPocoClient(dbOptions));
             return services;
         }
     }
