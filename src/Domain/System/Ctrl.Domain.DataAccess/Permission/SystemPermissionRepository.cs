@@ -57,10 +57,10 @@ namespace Ctrl.System.DataAccess
                 {
                     deleteSql.Append(" AND privilegeMenuId=@privilegeMenuId");
                 }
-                return SqlMapperUtil.InsertUpdateOrDeleteSqlBool<SystemPermission>
+                return SqlMapperUtil.InsertUpdateOrDeleteSqlBool
                     (deleteSql.ToString(), new { PrivilegeAccess = (int)privilegeAccess, privilegeMasterValue, privilegeMenuId });
             }
-            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool<SystemPermission>(deleteSql.ToString(), new { privilegeMasterValue });
+            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool(deleteSql.ToString(), new { privilegeMasterValue });
         }
         /// <summary>
         ///     根据用户id获取用户具有的菜单权限

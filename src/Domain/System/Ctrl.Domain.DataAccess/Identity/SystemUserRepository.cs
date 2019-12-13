@@ -46,7 +46,7 @@ namespace Ctrl.Domain.DataAccess.Identity
         public Task<bool> UpdateLastLoginTime(IdInput input)
         {
             const string sql = @"UPDATE [Sys_User] SET LastVisitTime=getdate() WHERE UserId=@userId";
-            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool<SystemUser>(sql, new { userId = input.Id });
+            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool(sql, new { userId = input.Id });
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Ctrl.Domain.DataAccess.Identity
         public Task<bool> UpdateFirstVisitTime(IdInput input)
         {
             const string sql = @"UPDATE [Sys_User] SET FirstVisitTime=getdate() WHERE UserId=@userId";
-            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool<SystemUser>(sql, new { userId = input.Id });
+            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool(sql, new { userId = input.Id });
         }
         /// <summary>
         ///     用户信息修改
@@ -70,7 +70,7 @@ namespace Ctrl.Domain.DataAccess.Identity
                                 SET ImgUrl=@ImgUrl,
                                 Name=@Name
                                 WHERE UserId=@userId";
-            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool<SystemUser>(sql,input);
+            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool(sql,input);
         }
         /// <summary>
         ///     检测代码是否已经具有重复项
