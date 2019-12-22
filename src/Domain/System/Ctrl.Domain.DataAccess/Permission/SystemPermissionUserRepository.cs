@@ -26,7 +26,7 @@ namespace Ctrl.System.DataAccess {
         public Task<bool> DeletePermissionUser(EnumPrivilegeMaster privilegeMaster, Guid privilegeMasterValue)
         {
             const string sql = "DELETE FROM Columns WHERE PrivilegeMaster=@privilegeMaster AND PrivilegeMasterValue=@privilegeMasterValue";
-             return SqlMapperUtil.InsertUpdateOrDeleteSqlBool<SystemPermissionUser>(sql,
+             return SqlMapperUtil.InsertUpdateOrDeleteSqlBool(sql,
                 new
                 {
                     privilegeMaster = (byte)privilegeMaster,
@@ -42,7 +42,7 @@ namespace Ctrl.System.DataAccess {
         public Task<bool> DeletePrivilegeMasterUser(string privilegeMasterUserId, EnumPrivilegeMaster privilegeMaster)
         {
             const string sql = "DELETE FROM System_PermissionUser WHERE PrivilegeMaster=@privilegeMaster AND PrivilegeMasterUserId=@privilegeMasterUserId";
-            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool<SystemPermissionUser>(sql,
+            return SqlMapperUtil.InsertUpdateOrDeleteSqlBool(sql,
                new { privilegeMaster = (byte)privilegeMaster, privilegeMasterUserId });
         }
     }

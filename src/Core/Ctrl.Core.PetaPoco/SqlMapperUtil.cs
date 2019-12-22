@@ -185,7 +185,7 @@ namespace Ctrl.Core.PetaPoco
         #endregion
 
         #region 增删改
-        public static Task<bool> InsertUpdateOrDeleteSqlBool<T>(string sql,dynamic parms=null)
+        public static Task<bool> InsertUpdateOrDeleteSqlBool(string sql,dynamic parms=null)
         {
 
             using(var db=CreateDbBase()){
