@@ -6,7 +6,13 @@
 前言
 =====
 
-ASP.NET Core3.1通用型基础开发框架，支持权限管理，代码生成，日志审计等。
+ASP.NET Core3.1通用型基础开发框架.
+
+项目介绍
+=====
+**ASP.NET-Core-BaseDesign**是一个基础权限开发型框架，支持权限管理，代码生成，日志审计等。
+
+![admin](https://raw.githubusercontent.com/ctrlcommunity/ASP.NET-Core-BaseDesign/dev/src/Presentation/Ctrl.Net/wwwroot/images/admin.png)
 
 # 代码贡献
 
