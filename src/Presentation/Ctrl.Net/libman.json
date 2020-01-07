@@ -248,7 +248,9 @@
         "skins/moono-lisa/images/refresh.png",
         "adapters/jquery.js",
         "plugins/templates/dialogs/templates.css",
-        "skins/moono-lisa/editor_gecko.css"
+        "skins/moono-lisa/editor_gecko.css",
+        "plugins/pastefromword/filter/default.js"
+
 
 
       ]
