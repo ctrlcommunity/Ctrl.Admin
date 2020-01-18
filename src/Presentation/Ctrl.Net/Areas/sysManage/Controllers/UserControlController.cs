@@ -30,14 +30,11 @@ namespace Ctrl.Net.Areas.sysManage.Controllers
         /// <summary>
         ///     读取树结构:排除下级
         /// </summary>
-        /// <param name="menuId"></param>
-        /// <param name="isRemove"></param>
         /// <returns></returns>
         [HttpPost]
         [CreateBy("冯辉")]
         [Description("用户控件-方法-读取菜单树结构:排除下级")]
-        public async Task<ContentResult> GetMenuRemoveChildren(Guid? menuId = null,
-              bool isRemove = true)
+        public async Task<ContentResult> GetMenuRemoveChildren()
         {
             return Content((await _menuLogic.GetAllMenu()).ToJson());
         }

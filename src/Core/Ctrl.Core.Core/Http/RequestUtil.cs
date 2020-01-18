@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Security.Authentication;
 using System.Text;
 using System.Web;
 
@@ -54,7 +55,7 @@ namespace Ctrl.Core.Core.Http
                 var req = WebRequest.Create(url);
                 req.Method = "POST";
                 req.ContentType = "application/x-www-form-urlencoded";
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+                ServicePointManager.SecurityProtocol =SecurityProtocolType.Tls;
                 var urlEncoded = new StringBuilder();
                 Char[] reserved = { '?', '=', '&' };
                 {
