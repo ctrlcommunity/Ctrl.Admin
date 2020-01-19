@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using NLog;
 using System.IO;
 using System.Reflection;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Ctrl.Net
 {
@@ -60,7 +61,9 @@ namespace Ctrl.Net
             }).AddNewtonsoftJson(options=> {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
-
+            //基于文件系统的密钥存储库（持久性保持密钥）
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine("login-keys")));
 
         }
 
