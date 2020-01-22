@@ -78,11 +78,11 @@ namespace Ctrl.Net
             LogManager.Configuration.Variables["connectionString"] = Configuration["App:ConnectionStrings:0:ConnectionString"];
             #endregion
             app.UseCookiePolicy();
-            var Provider = new FileExtensionContentTypeProvider();
-            Provider.Mappings[".less"] = "text/css";
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".less"] = "text/css";
             app.UseStaticFiles(new StaticFileOptions()
             {
-                ContentTypeProvider = Provider
+                ContentTypeProvider = provider
             });
             app.UseRouting();
             app.UseAuthentication();
