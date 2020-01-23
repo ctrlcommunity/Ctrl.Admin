@@ -23,7 +23,6 @@ namespace Ctrl.Core.PetaPoco {
     ///     The main PetaPoco Database class.  You can either use this class directly, or derive from it.
     /// </summary>
     public class Database : IDatabase {
-
         #region 写入日志
         /// <summary>
         ///     写入SqlLog日志
@@ -985,7 +984,7 @@ namespace Ctrl.Core.PetaPoco {
                             OperateSql = sql,
                             Parameter = args == null ? "" : string.Join (",", args)
                         };
-                        r = cmd.ExecuteReader ();
+                        r =  cmd.ExecuteReader ();
                         log.EndDateTime = DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
                         log.ElapsedTime = CommonHelper.TimerEnd (stopwatch);
                         WriteSqlLog (log);
@@ -2478,8 +2477,8 @@ namespace Ctrl.Core.PetaPoco {
             OpenSharedConnection ();
 
             GridReader result = null;
-
-            var cmd = CreateCommand (_sharedConnection, sql, args);
+            
+           using  var cmd = CreateCommand (_sharedConnection, sql, args);
 
             try {
                 var reader = cmd.ExecuteReader ();

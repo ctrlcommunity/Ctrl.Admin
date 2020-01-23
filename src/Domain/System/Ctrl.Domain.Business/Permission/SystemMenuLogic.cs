@@ -35,7 +35,7 @@ namespace Ctrl.System.Business {
         public  Task<OperateStatus> SaveMenu (SystemMenu systemMenu) {
             if (systemMenu.MenuId.IsEmptyGuid())
             {
-                systemMenu.MenuId = Guid.NewGuid();
+                systemMenu.MenuId = CombUtil.NewComb();
                 return InsertAsync(systemMenu);
             }
             else {
@@ -48,12 +48,13 @@ namespace Ctrl.System.Business {
         /// <returns></returns>
         public async Task<IEnumerable<TreeEntity>> GetAllMenu () {
             var MenuAllList = await _systemMenuRepository.GetAllMenu ();
-            MenuAllList = MenuAllList.Select (m => {
-                m.url = "";
-                m.pId = (Guid.Parse (m.pId.ToString()).IsEmptyGuid ()) ? null : m.pId;
-                m.isParent = MenuAllList.Select(m1=>m1.pId).Contains(m.id);
-                return m;
-            }).ToList ();
+            // MenuAllList = MenuAllList.Select(m =>
+            // {
+            //     m.url = "";
+            //     m.pId = (Guid.Parse(m.pId.ToString()).IsEmptyGuid()) ? null : m.pId;
+            //     m.isParent = MenuAllList.Select(m1 => m1.pId).Contains(m.id);
+            //     return m;
+            // });
 
 
             return MenuAllList;

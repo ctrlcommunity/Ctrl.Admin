@@ -76,6 +76,7 @@ namespace Ctrl.Net
             app.UseStaticHttpContext();
             #region Nlog
             LogManager.Configuration.Variables["connectionString"] = Configuration["App:ConnectionStrings:0:ConnectionString"];
+            LogManager.Configuration.Variables["nlogDbProvider"] = Configuration["App:ConnectionStrings:0:NlogDbProvider"];
             #endregion
             app.UseCookiePolicy();
             var provider = new FileExtensionContentTypeProvider();

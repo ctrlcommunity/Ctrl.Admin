@@ -74,7 +74,7 @@ namespace Ctrl.Domain.Business.Identity
             catch(Exception ex)
             {
                 operateStatus.Message = string.Format(Chs.Successful, "登录失败");
-                operateStatus.Message = ex.Message;
+                operateStatus.ResultSign = ResultSign.Error;
                 goto End;
             }
             End:
