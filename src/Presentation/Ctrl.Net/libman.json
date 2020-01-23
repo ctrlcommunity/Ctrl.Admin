@@ -7,9 +7,7 @@
       "library": "jquery@3.3.1",
       "destination": "wwwroot/lib/jquery/",
       "files": [
-        "jquery.min.js",
-        "jquery.js",
-        "jquery.min.map"
+        "jquery.min.js"
       ]
     },
     {
@@ -17,7 +15,6 @@
       "library": "jqueryui@1.12.1",
       "destination": "wwwroot/lib/jqueryui/",
       "files": [
-        "jquery-ui.js",
         "jquery-ui.min.js",
         "jquery-ui.css"
       ]
@@ -27,8 +24,6 @@
       "library": "axios@0.18.0",
       "destination": "wwwroot/lib/axios",
       "files": [
-        "axios.js",
-        "axios.min.map",
         "axios.min.js"
       ]
     },
@@ -37,7 +32,6 @@
       "library": "limonte-sweetalert2@7.33.1",
       "destination": "wwwroot/lib/sweetalert/",
       "files": [
-        "sweetalert2.all.js",
         "sweetalert2.all.min.js"
       ]
     },
@@ -54,7 +48,6 @@
       "library": "lodash@4.17.11",
       "destination": "wwwroot/lib/lodash/",
       "files": [
-        "lodash.js",
         "lodash.min.js"
       ]
     },
@@ -75,13 +68,9 @@
       "library": "bootstrap@3.3.7",
       "destination": "wwwroot/lib/bootstarp",
       "files": [
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js",
         "dist/fonts/glyphicons-halflings-regular.woff2",
-        "dist/css/bootstrap.css.map",
         "dist/js/bootstrap.min.js",
-        "dist/css/bootstrap.min.css",
-        "dist/css/bootstrap.min.css.map"
+        "dist/css/bootstrap.min.css"
       ]
     },
     {
@@ -89,9 +78,7 @@
       "library": "bootstrap-switch@3.3.4",
       "destination": "wwwroot/lib/bootstrap-switch",
       "files": [
-        "css/bootstrap3/bootstrap-switch.css",
         "css/bootstrap3/bootstrap-switch.min.css",
-        "js/bootstrap-switch.js",
         "js/bootstrap-switch.min.js"
       ]
     },
@@ -112,7 +99,6 @@
       "library": "jquery-cookie@1.4.1",
       "destination": "wwwroot/lib/jquery-cookie",
       "files": [
-        "jquery.cookie.js",
         "jquery.cookie.min.js"
       ]
     },
