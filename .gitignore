@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 /src/Presentation/Ctrl.Net/login-keys
 /src/Presentation/Ctrl.Net/login-keys
+.vscode/tasks.json
+.vscode/launch.json
+src/Presentation/.DS_Store

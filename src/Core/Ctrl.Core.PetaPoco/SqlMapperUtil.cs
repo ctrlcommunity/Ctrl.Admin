@@ -23,7 +23,7 @@ namespace Ctrl.Core.PetaPoco
         public static Task<object> Insert<T> (T t) where T : class {
             using (var db = CreateDbBase ()) {
                 var result = db.Insert (t);
-                return Task.Factory.StartNew (() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -33,7 +33,7 @@ namespace Ctrl.Core.PetaPoco
         public static Task<int>InsertBatch<T>(IEnumerable<T> lt)where T:class{
             using(var db=CreateDbBase()){
                 db.BulkInsert(lt);
-                return Task.Factory.StartNew (() => 1);
+                return Task.FromResult(1);
             }
 
         }
@@ -48,7 +48,7 @@ namespace Ctrl.Core.PetaPoco
         public static Task<int> Update<T> (T t) where T : class {
             using (var db = CreateDbBase ()) {
                 var result = db.Update (t);
-                return Task.Factory.StartNew (() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -63,7 +63,7 @@ namespace Ctrl.Core.PetaPoco
             using (var db=CreateDbBase())
             {
                 var result = db.Update(tableName, pkey,poco,columns);
-                return Task.Factory.StartNew(() => result);
+                return Task.FromResult(result);
             }
         }
 
@@ -76,7 +76,7 @@ namespace Ctrl.Core.PetaPoco
         public static Task<int> Delete<T> (T t) where T : class {
             using (var db = CreateDbBase ()) {
                 var result = db.Delete (t);
-                return Task.Factory.StartNew (() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -89,7 +89,7 @@ namespace Ctrl.Core.PetaPoco
             {
        
                var result= db.Delete<T>(id);
-                return Task.Factory.StartNew(() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace Ctrl.Core.PetaPoco
         public static Task<IEnumerable<T>> Query<T> (string sql = null, params object[] args) where T : class {
             using (var db = CreateDbBase ()) {
                 var result = db.Query<T> (sql, args);
-                return Task.Factory.StartNew (() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -113,14 +113,14 @@ namespace Ctrl.Core.PetaPoco
         public static Task<T> SingleOrDefault<T> (string sql = null) where T : class {
             using (var db = CreateDbBase ()) {
                 var result = db.SingleOrDefault<T> (sql);
-                return Task.Factory.StartNew (() => result);
+                return Task.FromResult(result);
             }
 
         }
         public static Task<T> FirstOrDefault<T> (string sql, params object[] args) where T : class {
             using (var db = CreateDbBase ()) {
                 var result = db.FirstOrDefault<T> (sql, args);
-                return Task.Factory.StartNew (() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -131,7 +131,7 @@ namespace Ctrl.Core.PetaPoco
         public static Task<T> GetById<T> (object id) {
             using(var db=CreateDbBase()){
                 var result=db.SingleOrDefault<T>(id);
-                return Task.Factory.StartNew(()=>result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -143,7 +143,7 @@ namespace Ctrl.Core.PetaPoco
         public static Task<bool> Exists<T> (object id) {
             using (var db = CreateDbBase ()) {
                 var result = db.Exists<T>(id);
-                return Task.Factory.StartNew (() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -156,7 +156,7 @@ namespace Ctrl.Core.PetaPoco
             using (var db=CreateDbBase())
             {
                 var result = db.ExecuteScalar<int>(sql,args);
-                return Task.Factory.StartNew(() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -178,7 +178,7 @@ namespace Ctrl.Core.PetaPoco
                 pagerInfo.Pagerow = result.ItemsPerPage;
                 pagerInfo.RecordCount = result.TotalItems;
                 
-                return Task.Factory.StartNew (() => new PagedResults<T> { Data = result.Items, pagerInfo = pagerInfo });
+                return Task.FromResult(new PagedResults<T> { Data = result.Items, pagerInfo = pagerInfo });
             }
         }
 
@@ -190,7 +190,7 @@ namespace Ctrl.Core.PetaPoco
 
             using(var db=CreateDbBase()){
                 int result=db.Execute(sql,parms);
-                return Task.Factory.StartNew(()=>result>1);
+                return Task.FromResult(result>1);
 
             }
         }
@@ -206,7 +206,7 @@ namespace Ctrl.Core.PetaPoco
             using (var db = CreateDbBase())
             {
                 var result = db.Query<T>(sql, (object)parms).Any();
-                return Task.Factory.StartNew(() => result);
+                return Task.FromResult(result);
             }
         }
         /// <summary>
@@ -222,7 +222,7 @@ namespace Ctrl.Core.PetaPoco
             using (var db = CreateDbBase())
             {
                 var result = db.Query<T>(sql, (object)parms);
-                return Task.Factory.StartNew(() => result);
+                return Task.FromResult(result);
             }
         }
         #endregion

@@ -61,7 +61,6 @@ namespace Ctrl.Domain.Business.Identity
                 }
                 operateStatus.ResultSign = ResultSign.Successful;
                 operateStatus.Message = "登录成功!";
-                operateStatus.Message = string.Format(Chs.Successful, "登录成功");
                 operateStatus.Data = data;
                 if (data.FirstVisitTime == null)
                 {
@@ -73,7 +72,7 @@ namespace Ctrl.Domain.Business.Identity
             }
             catch(Exception ex)
             {
-                operateStatus.Message = string.Format(Chs.Successful, "登录失败");
+                operateStatus.Message = string.Format(Chs.Error, ex.Message);
                 operateStatus.ResultSign = ResultSign.Error;
                 goto End;
             }
