@@ -235,7 +235,9 @@
         "adapters/jquery.js",
         "plugins/templates/dialogs/templates.css",
         "skins/moono-lisa/editor_gecko.css",
-        "plugins/pastefromword/filter/default.js"
+        "plugins/pastefromword/filter/default.js",
+        "skins/moono-lisa/icons_hidpi.png"
+        
 
 
 
@@ -284,18 +286,6 @@
         "js/select2.min.js"
       ]
     }
-    //,
-    //{
-    //  "provider": "cdnjs",
-    //  "library": "parsley.js@2.9.0",
-    //  "destination": "wwwroot/lib/parsley/",
-    //  "files": [
-    //    "dist/i18n/zh_cn.js",
-    //    "src/parsley.css",
-    //    "dist/parsley.min.js"
-    //  ]
-    //}
-
 
   ]
 }
