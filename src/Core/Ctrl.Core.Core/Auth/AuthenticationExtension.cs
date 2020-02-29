@@ -75,7 +75,7 @@ namespace Ctrl.Core.Core.Auth
             {
                 // 如果HttpContext.User.Identity.IsAuthenticated为true，
                 //或者HttpContext.User.Claims.Count()大于0表示用户已经登录
-                if(HttpContexts.Current.User.Claims.Count()>0)
+                if(HttpContexts.Current.User.Claims.Any())
                 {
                     //这里通过 HttpContext.User.Claims 可以将我们在Login这个Action中存储到cookie中的所有
                     //claims键值对都读出来

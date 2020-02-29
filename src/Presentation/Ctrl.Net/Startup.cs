@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using NLog;
 using System.IO;
 using System.Reflection;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Ctrl.Net
 {
@@ -60,7 +61,9 @@ namespace Ctrl.Net
             }).AddNewtonsoftJson(options=> {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
-
+            //基于文件系统的密钥存储库（持久性保持密钥）
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine("login-keys")));
 
         }
 
@@ -73,13 +76,14 @@ namespace Ctrl.Net
             app.UseStaticHttpContext();
             #region Nlog
             LogManager.Configuration.Variables["connectionString"] = Configuration["App:ConnectionStrings:0:ConnectionString"];
+            LogManager.Configuration.Variables["nlogDbProvider"] = Configuration["App:ConnectionStrings:0:NlogDbProvider"];
             #endregion
             app.UseCookiePolicy();
-            var Provider = new FileExtensionContentTypeProvider();
-            Provider.Mappings[".less"] = "text/css";
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".less"] = "text/css";
             app.UseStaticFiles(new StaticFileOptions()
             {
-                ContentTypeProvider = Provider
+                ContentTypeProvider = provider
             });
             app.UseRouting();
             app.UseAuthentication();

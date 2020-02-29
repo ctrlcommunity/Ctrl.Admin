@@ -7,6 +7,7 @@ using Ctrl.Core.PetaPoco;
 using Ctrl.Domain.Models.Dtos;
 using Ctrl.Domain.Models.Dtos.Identity;
 using Ctrl.Domain.Models.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace Ctrl.Domain.DataAccess.Identity
@@ -34,7 +35,7 @@ namespace Ctrl.Domain.DataAccess.Identity
         /// <returns></returns>
         public Task<PagedResults<SystemUser>> GetPagingSysUser(QueryParam queryParam)
         {
-            var sql = "SELECT * FROM [dbo].[Sys_User] sysUser";
+            var sql = "SELECT * FROM Sys_User sysUser";
             return SqlMapperUtil.PagingQuery<SystemUser>(sql,queryParam);
         }
 
@@ -45,7 +46,7 @@ namespace Ctrl.Domain.DataAccess.Identity
         /// <returns></returns>
         public Task<bool> UpdateLastLoginTime(IdInput input)
         {
-            const string sql = @"UPDATE [Sys_User] SET LastVisitTime=getdate() WHERE UserId=@userId";
+            string sql = $@"UPDATE Sys_User SET LastVisitTime='{DateTime.Now:yyyy-MM-dd HH:mm:ss}' WHERE UserId=@userId";
             return SqlMapperUtil.InsertUpdateOrDeleteSqlBool(sql, new { userId = input.Id });
         }
 
@@ -56,7 +57,7 @@ namespace Ctrl.Domain.DataAccess.Identity
         /// <returns></returns>
         public Task<bool> UpdateFirstVisitTime(IdInput input)
         {
-            const string sql = @"UPDATE [Sys_User] SET FirstVisitTime=getdate() WHERE UserId=@userId";
+            string sql = $@"UPDATE Sys_User SET FirstVisitTime='{DateTime.Now:yyyy-MM-dd HH:mm:ss}' WHERE UserId=@userId";
             return SqlMapperUtil.InsertUpdateOrDeleteSqlBool(sql, new { userId = input.Id });
         }
         /// <summary>
@@ -66,7 +67,7 @@ namespace Ctrl.Domain.DataAccess.Identity
         /// <returns></returns>
         public Task<bool> UserInfoUpdateSave(UserUpdateInput input)
         {
-            const string sql = @"UPDATE [Sys_User] 
+            const string sql = @"UPDATE Sys_User
                                 SET ImgUrl=@ImgUrl,
                                 Name=@Name
                                 WHERE UserId=@userId";

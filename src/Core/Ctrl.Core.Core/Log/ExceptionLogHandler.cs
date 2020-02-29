@@ -56,14 +56,16 @@ namespace Ctrl.Core.Core.Log
             log.HttpMethod = request.Method;
             log.UserAgent = request.Headers["user-agent"];
             log.InnerException = exception.InnerException != null ? GetExceptionFullMessage(exception.InnerException) : "";
-            if (request.Method.ToLower() == "post")
+            if (request?.HasFormContentType ?? request.HasFormContentType)
             {
-                var Result = request.Form;
-                log.RequestData = request.Form.ToJson();
+                log.RequestData = request?.Form?.ToJson();
             }
             else
             {
-                log.RequestData = HttpUtility.UrlDecode(new StreamReader(request.Body).ReadToEnd());
+                if (request.Body.CanSeek)
+                {
+                    log.RequestData = HttpUtility.UrlDecode(new StreamReader(request?.Body).ReadToEnd());
+                }
             }
         }
         /// <summary>

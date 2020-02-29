@@ -500,7 +500,7 @@ namespace Ctrl.Net.Areas.sysManage.Controllers
                 }
             }
             string returnStr = stringBuilder.ToString().TrimEnd(',');
-            returnStr = returnStr + "        ]";
+            returnStr += "        ]";
             return returnStr;
         }
         #endregion

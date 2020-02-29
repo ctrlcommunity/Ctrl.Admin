@@ -29,7 +29,7 @@ namespace Ctrl.System.DataAccess {
             }
             sql.Append (" from Sys_Menu menu");
             if (isMenuShow) {
-                sql.Append (" WHERE menu.IsShowMenu='true'");
+                sql.Append (" WHERE menu.IsShowMenu=1");
             }
             sql.Append (" ORDER BY menu.OrderNo");
             return SqlMapperUtil.Query<TreeEntity> (sql.ToString ());

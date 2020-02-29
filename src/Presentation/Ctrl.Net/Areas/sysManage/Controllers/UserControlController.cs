@@ -34,9 +34,9 @@ namespace Ctrl.Net.Areas.sysManage.Controllers
         [HttpPost]
         [CreateBy("冯辉")]
         [Description("用户控件-方法-读取菜单树结构:排除下级")]
-        public async Task<ContentResult> GetMenuRemoveChildren()
+        public async Task<JsonResult> GetMenuRemoveChildren()
         {
-            return Content((await _menuLogic.GetAllMenu()).ToJson());
+            return Json((await _menuLogic.GetAllMenu()));
         }
         /// <summary>
         ///     读取角色树结构

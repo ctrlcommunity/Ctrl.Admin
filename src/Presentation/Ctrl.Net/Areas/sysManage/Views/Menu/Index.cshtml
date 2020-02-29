@@ -104,7 +104,7 @@
     function btn_edit_box() {
         var obj = $grid.gridRowValue();
             if (obj==null) {
-                $.Alert({ resultSign: 1, message: "请选择一个角色！" });
+                $.Alert({ resultSign: 1, message: "请选择一个菜单！" });
                 return false;
             }
             $.windowsOpen("/sysManage/Menu/Edit?id=" + obj.menuId, "编辑菜单", '55%', '85%');
