@@ -38,9 +38,7 @@
   </ItemGroup>
 
   <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties Configs_4appsettings_1json__JSONSchema="http://json.schemastore.org/appveyor" libman_1json__JSONSchema="" />
-    </VisualStudio>
+    <VisualStudio><UserProperties configs_4appsettings_1json__JsonSchema="" libman_1json__JSONSchema="" /></VisualStudio>
   </ProjectExtensions>
 </Project>
 

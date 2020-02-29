@@ -10,7 +10,8 @@ namespace Ctrl.Core.PetaPoco.Providers
     {
         public override DbProviderFactory GetFactory()
         {
-            return GetFactory("System.Data.SqlClient.SqlClientFactory, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            return GetFactory("System.Data.SqlClient.SqlClientFactory, System.Data.SqlClient, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
+           // return GetFactory("System.Data.SqlClient.SqlClientFactory, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
         }
 
         public override string BuildPageQuery(long skip, long take, SQLParts parts, ref object[] args)

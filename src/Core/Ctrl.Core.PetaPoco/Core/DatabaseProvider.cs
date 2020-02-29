@@ -5,7 +5,9 @@ using System;
 using System.Collections.Concurrent;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 
 namespace Ctrl.Core.PetaPoco.Core
 {
@@ -133,7 +135,7 @@ namespace Ctrl.Core.PetaPoco.Core
         }
 
         /// <summary>
-        ///     Returns the .net standard conforming DbProviderFactory.
+        ///     Returns the .net standard conforming DbProviderFactory. 
         /// </summary>
         /// <param name="assemblyQualifiedNames">The assembly qualified name of the provider factory.</param>
         /// <returns>The db provider factory.</returns>
