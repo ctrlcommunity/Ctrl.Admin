@@ -12,11 +12,11 @@ ASP.NET Core3.1通用型基础开发框架.
 =====
 **Ctrl.Admin**是一个基础权限开发型框架，支持权限管理，代码生成，日志审计等。
 
-![admin](https://raw.githubusercontent.com/ctrlcommunity/ASP.NET-Core-BaseDesign/dev/src/Presentation/Ctrl.Net/wwwroot/images/admin.png)
+![admin](https://raw.githubusercontent.com/ctrlcommunity/Ctrl.Admin/dev/src/Presentation/Ctrl.Net/wwwroot/images/admin.png)
 
-![admin](https://raw.githubusercontent.com/ctrlcommunity/ASP.NET-Core-BaseDesign/dev/src/Presentation/Ctrl.Net/wwwroot/images/admin-oplog.png)
+![admin](https://raw.githubusercontent.com/ctrlcommunity/Ctrl.Admin/dev/src/Presentation/Ctrl.Net/wwwroot/images/admin-oplog.png)
 
-![admin](https://raw.githubusercontent.com/ctrlcommunity/ASP.NET-Core-BaseDesign/dev/src/Presentation/Ctrl.Net/wwwroot/images/admin-button.png)
+![admin](https://raw.githubusercontent.com/ctrlcommunity/Ctrl.Admin/dev/src/Presentation/Ctrl.Net/wwwroot/images/admin-button.png)
 
 
 
