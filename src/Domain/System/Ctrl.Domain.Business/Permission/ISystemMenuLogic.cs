@@ -13,7 +13,7 @@ namespace Ctrl.System.Business {
     /// <summary>
     /// 系统菜单业务逻辑接口
     /// </summary>
-    public interface ISystemMenuLogic : IAsyncLogic<SystemMenu> {
+    public interface ISystemMenuLogic:IAsyncLogic<SystemMenu> {
         /// <summary>
         ///     保存菜单
         /// </summary>

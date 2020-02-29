@@ -3,10 +3,10 @@ using Ctrl.Core.Web;
 using Ctrl.System.Business;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
+using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using Ctrl.Core.Web.Attributes;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Ctrl.Net.Areas.SysManage.Controllers
 {
@@ -63,9 +63,8 @@ namespace Ctrl.Net.Areas.SysManage.Controllers
             var data=(await _permissionLogic.GetSystemPermissionMenuByUserId(CurrentUser.UserId)).ToList();
             return Json(data);
         }
-     
-        #endregion
 
+        #endregion
 
     }
 }

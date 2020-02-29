@@ -17,11 +17,11 @@ namespace Ctrl.System.Business {
     /// <summary>
     ///     系统菜单业务逻辑接口实现
     /// /// </summary>
-    public class SystemMenuLogic : AsyncLogic<SystemMenu>, ISystemMenuLogic {
+    public class SystemMenuLogic :AsyncLogic<SystemMenu>, ISystemMenuLogic {
         #region 构造函数
         private readonly ISystemMenuRepository _systemMenuRepository;
 
-        public SystemMenuLogic(ISystemMenuRepository systemMenuRepository) : base (systemMenuRepository) {
+        public SystemMenuLogic(ISystemMenuRepository systemMenuRepository){
             this._systemMenuRepository = systemMenuRepository;
         }
         #endregion
@@ -38,7 +38,8 @@ namespace Ctrl.System.Business {
                 systemMenu.MenuId = Guid.NewGuid();
                 return InsertAsync(systemMenu);
             }
-            else {
+            else
+            {
                 return UpdateAsync(systemMenu);
             }
         }
@@ -73,31 +74,31 @@ namespace Ctrl.System.Business {
         /// <param name="input"></param>
         public async Task<OperateStatus>DeleteMenu(IdInput input){
                var OperateStatus=new OperateStatus();
-               var Menu=await GetById(input.Id);
-               //判断是否存在
-               if (Menu==default(SystemMenu))
-               {
-                    OperateStatus.ResultSign=ResultSign.Error;
-                    OperateStatus.Message=Chs.HaveDelete;
-                   goto Ending;
-               }
-                //是否可以删除
-                if (!Menu.CanbeDelete)
-                {
-                      OperateStatus.ResultSign=ResultSign.Error;
-                    OperateStatus.Message=Chs.CanotDelete;
-                   goto Ending;
-                }
-               //是否存在下级菜单 
-               if ((await GetMenuByPid(input)).Any())
-               {
-                   OperateStatus.ResultSign=ResultSign.Error;
-                   OperateStatus.Message=string.Format(Chs.Error, ResourceSystem.具有下级项);
-                   goto Ending;
-               }
-              OperateStatus=await DeleteById(input.Id);
+            var Menu = await GetById(input.Id);
+            //判断是否存在
+            if (Menu == default(SystemMenu))
+            {
+                OperateStatus.ResultSign = ResultSign.Error;
+                OperateStatus.Message = Chs.HaveDelete;
+                goto Ending;
+            }
+            //是否可以删除
+            if (!Menu.CanbeDelete)
+            {
+                OperateStatus.ResultSign = ResultSign.Error;
+                OperateStatus.Message = Chs.CanotDelete;
+                goto Ending;
+            }
+            //是否存在下级菜单 
+            if ((await GetMenuByPid(input)).Any())
+            {
+                OperateStatus.ResultSign = ResultSign.Error;
+                OperateStatus.Message = string.Format(Chs.Error, ResourceSystem.具有下级项);
+                goto Ending;
+            }
+            OperateStatus = await DeleteById(input.Id);
 
-             Ending:
+            Ending:
                 return OperateStatus;
         }
         #endregion
