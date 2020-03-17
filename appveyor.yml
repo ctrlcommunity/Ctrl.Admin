@@ -5,6 +5,8 @@ os:
 branches:
   only:
   - master
+build_script:
+  - dotnet restore
 environment:
   BUILDING_ON_PLATFORM: linux
   BuildEnvironment: appveyor
